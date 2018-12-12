@@ -17,8 +17,8 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveCam(float speed)
     {
-        transform.position += new Vector3(direction.value.x * Time.deltaTime * speed, 0, 0);
+        //transform.position += new Vector3(direction.value.x * Time.deltaTime * speed, 0, 0);
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min, max), transform.position.y, transform.position.z);
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, min, max), transform.position.y, transform.position.z);
     }
 }

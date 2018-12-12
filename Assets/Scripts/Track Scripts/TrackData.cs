@@ -11,10 +11,26 @@ public class TrackData : MonoBehaviour,IEntity
     [SerializeField] private string _poolTag;
     [SerializeField] private Transform _backConnection;
     [SerializeField] private Transform _frontConnection;
+    [SerializeField] private Sprite[] tileDeviations;
 
+    private SpriteRenderer spriteRenderer;
+
+    void Awake() //needs to be in Awake so its called before OnEnable.
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    void OnEnable()
+    {
+        ChangeDeviation();
+    }
     public void EndReached()
     {
         ObjectPooler.instance.RequeObject(PoolTag, gameObject);
         TrackGenerator.instance.RemoveActive(this);
+    }
+    void ChangeDeviation()
+    {
+        Debug.Log(Random.Range(0, tileDeviations.Length-1));
+        spriteRenderer.sprite = tileDeviations[Random.Range(0, tileDeviations.Length-1)];
     }
 }

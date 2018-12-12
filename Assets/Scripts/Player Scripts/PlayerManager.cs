@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
 {
     [Header("Fields")]
     [SerializeField] private LayerMask allTiles;
-    [SerializeField] private Transform raycastPoint;
     [SerializeField] private float _defaultWorldSpeed;
     [Range(0, 1)]
     [SerializeField] private float decelarationMagnitude;
@@ -92,14 +91,14 @@ public class PlayerManager : MonoBehaviour
         }
         if (roadEntered&&!turnMissed) //checks for ground to start loose condition.
         {
-            if (Physics2D.RaycastNonAlloc(raycastPoint.position, Vector3.forward, results, 100f, allTiles) == 0)
+            if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
             {
                 turnMissed = true;
                 onMissedTurn.Raise();
             }
         }
         else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
-            if (Physics2D.RaycastNonAlloc(raycastPoint.position, Vector3.forward, results, 100f, allTiles) > 0)
+            if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) > 0)
                 roadEntered = true;                    
             
     }
@@ -198,6 +197,4 @@ public class PlayerManager : MonoBehaviour
         }
     }
     #endregion
-
-
 }
