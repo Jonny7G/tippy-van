@@ -35,7 +35,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameEvent OnDirectionReset;
     [SerializeField] private GameEvent OnDirectionSwitch;
     [SerializeField] private GameEvent onTurn;
-    [SerializeField] private GameEvent onTurnAchieved;//finished moving to position
     [SerializeField] private GameEvent onWrongTurn;
     [SerializeField] private GameEvent onMissedTurn;
     [Space()]
@@ -89,18 +88,21 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-        if (roadEntered&&!turnMissed) //checks for ground to start loose condition.
+        if (roadEntered && !turnMissed) //checks for ground to start loose condition.
         {
             if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
             {
                 turnMissed = true;
+                acceptingInput = false;
                 onMissedTurn.Raise();
             }
         }
         else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
             if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) > 0)
-                roadEntered = true;                    
-            
+            {
+                acceptingInput = true;
+                roadEntered = true;
+            }
     }
 
     private void SwitchDirection()
@@ -139,7 +141,7 @@ public class PlayerManager : MonoBehaviour
         transform.position = Vector3.zero + new Vector3(0, 0, -20);
         ResetDirection();
         inTurn.Value = false;
-        acceptingInput = true;
+        acceptingInput = false;
         worldSpeed.Value = DefaultWorldSpeed;
         
         executingTurn.Value = false;
