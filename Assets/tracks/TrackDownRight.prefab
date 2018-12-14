@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4049906102542512702}
   - component: {fileID: 4258286661723097211}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,11 +278,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.567001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
-        type: 3}
-      propertyPath: spawnChance
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}

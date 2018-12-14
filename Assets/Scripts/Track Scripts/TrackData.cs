@@ -29,7 +29,6 @@ public class TrackData : MonoBehaviour,IEntity
         foreach (CoinBehaviour coin in containedCoins)
             coin.RollSpawnChance();
 
-        Debug.Log(Random.Range(0, tileDeviations.Length-1));
         spriteRenderer.sprite = tileDeviations[Random.Range(0, tileDeviations.Length-1)];
     }
     public void EndReached()

@@ -195,7 +195,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06882286, y: -0.8427285}
+  m_Offset: {x: -0.12757605, y: -0.92797667}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -206,7 +206,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7296499, y: 1.0606241}
+  m_Size: {x: 0.7230494, y: 0.8901278}
   m_EdgeRadius: 0
 --- !u!1 &43
 GameObject:
@@ -342,7 +342,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06882286, y: -0.5136552}
+  m_Offset: {x: -0.06882286, y: -0.8100369}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -353,7 +353,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7296499, y: 1.8660629}
+  m_Size: {x: 0.7296499, y: 1.4622104}
   m_EdgeRadius: 0
 --- !u!1001 &2826314693708997136
 PrefabInstance:
@@ -366,6 +366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
@@ -422,11 +427,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
-        type: 3}
-      propertyPath: spawnChance
-      value: 0.33
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
 --- !u!4 &6907255888516989027 stripped
@@ -458,6 +458,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
@@ -514,11 +519,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
-        type: 3}
-      propertyPath: spawnChance
-      value: 0.33
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
 --- !u!4 &848438980701616874 stripped
@@ -550,6 +550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
@@ -605,11 +610,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
-        type: 3}
-      propertyPath: spawnChance
-      value: 0.33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}

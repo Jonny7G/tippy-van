@@ -41,7 +41,12 @@ public class PlayerManager : MonoBehaviour
     #region Debug stuff
     [Header("DEBUG OPTIONS")]
     [SerializeField] private bool autoDirectionChange;
-    #endregion
+    [SerializeField] private LayerMask turnTile;
+    [SerializeField] private LayerMask normalTile;
+    [SerializeField] private bool clearedTurn = true;
+    [SerializeField] private GameObject lastTurn;
+    [SerializeField] private GameObject normTile;
+#endregion
 
     public float DefaultWorldSpeed { get { return _defaultWorldSpeed; } }
 
@@ -73,28 +78,29 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        #region Input Behaviour
         if (gameStateManager.GameActive)
         {
-            if (!autoDirectionChange)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                if (acceptingInput)
                 {
-                    if (acceptingInput)
-                    {
-                        acceptingInput = false;
-                        SlowDown();
-                        ActivateAnim();
-                    }
+                    acceptingInput = false;
+                    SlowDown();
+                    ActivateAnim();
                 }
             }
         }
+        #endregion
+        #region Android Behaviour
+#if UNITY_ANDROID
         if (roadEntered && !turnMissed) //checks for ground to start loose condition.
         {
             if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
             {
                 turnMissed = true;
                 acceptingInput = false;
-                onMissedTurn.Raise();
+                //onMissedTurn.Raise();
             }
         }
         else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
@@ -103,6 +109,62 @@ public class PlayerManager : MonoBehaviour
                 acceptingInput = true;
                 roadEntered = true;
             }
+#endif
+        #endregion
+        #region Editor stuff
+#if UNITY_EDITOR
+        if (autoDirectionChange)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.forward, 100f, turnTile);
+            if(hit.collider!=null)
+                if(hit.collider.gameObject.transform.parent.gameObject!=lastTurn)
+                {
+                    Vector2 dir = new Vector2();
+
+                    switch (direction.value)
+                    {
+                        case WorldDirection.left:
+                            dir = GetIsometricCordinate(Vector2.up);
+                            break;
+                        case WorldDirection.right:
+                            dir = GetIsometricCordinate(Vector2.right);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    RaycastHit2D sideCheck = Physics2D.Raycast((Vector2)transform.position-dir*2, dir, 100f, normalTile);
+
+                    if (sideCheck.collider != null)
+                    {
+                        normTile = sideCheck.collider.gameObject;
+                        lastTurn = hit.collider.gameObject.transform.parent.gameObject;
+                        SlowDown();
+                        ActivateAnim();
+                    }
+                }
+        }
+        else if (!autoDirectionChange)
+        {
+            if (roadEntered && !turnMissed) //checks for ground to start loose condition.
+            {
+                Debug.Log("WHY GOD");
+                if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
+                {
+                    turnMissed = true;
+                    acceptingInput = false;
+                    //onMissedTurn.Raise();
+                }
+            }
+            else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
+                if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) > 0)
+                {
+                    acceptingInput = true;
+                    roadEntered = true;
+                }
+        }
+#endif
+        #endregion
     }
 
     private void SwitchDirection()
@@ -165,7 +227,6 @@ public class PlayerManager : MonoBehaviour
     {
         while (worldSpeed.Value > bottomOutValue)
         {
-            Debug.Log("Decelarating");
             worldSpeed.Value *= decelarationMagnitude;
             
             yield return new WaitForSeconds(decelarationRate);
@@ -191,7 +252,6 @@ public class PlayerManager : MonoBehaviour
         SwitchDirection();
         while (worldSpeed.Value < DefaultWorldSpeed)
         {
-            Debug.Log("Accelerating");
             worldSpeed.Value *= accelarationMagnitude;
             worldSpeed.Value = Mathf.Clamp(worldSpeed.Value, 0.1f, DefaultWorldSpeed);
 
@@ -199,4 +259,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Vector2 dir = new Vector2();
+        switch (direction.value)
+        {
+            case WorldDirection.left:
+                dir = GetIsometricCordinate(Vector2.up);
+                break;
+            case WorldDirection.right:
+                dir = GetIsometricCordinate(Vector2.right);
+                break;
+            default:
+                break;
+        }
+
+        Gizmos.DrawWireSphere((Vector2)transform.position -dir, 0.5f);
+    }
 }

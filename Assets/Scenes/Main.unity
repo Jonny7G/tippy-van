@@ -775,7 +775,16 @@ MonoBehaviour:
   onTurn: {fileID: 11400000, guid: 9288ac6b6b9240a428fab27644414e76, type: 2}
   onWrongTurn: {fileID: 11400000, guid: 8504cac5485811840898c6cc8eb37bf8, type: 2}
   onMissedTurn: {fileID: 11400000, guid: 7c5103a65ef923c4ab1a18eb8b2451cd, type: 2}
-  autoDirectionChange: 0
+  autoDirectionChange: 1
+  turnTile:
+    serializedVersion: 2
+    m_Bits: 256
+  normalTile:
+    serializedVersion: 2
+    m_Bits: 1024
+  clearedTurn: 1
+  lastTurn: {fileID: 0}
+  normTile: {fileID: 0}
 --- !u!114 &583270264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,7 +1623,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.030008316}
+  m_Offset: {x: 0, y: -0.1878019}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1625,7 +1634,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.1875815}
+  m_Size: {x: 1, y: 2.6232018}
   m_EdgeRadius: 0
 --- !u!1 &1906608752
 GameObject:
@@ -1671,7 +1680,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.030008316}
+  m_Offset: {x: 0, y: -0.19801247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1682,7 +1691,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.1875815}
+  m_Size: {x: 1, y: 2.643623}
   m_EdgeRadius: 0
 --- !u!1 &1925657483
 GameObject:
@@ -6878,7 +6887,7 @@ PrefabInstance:
     - target: {fileID: 4047577703808711522, guid: ae597f9bdcc67fc44b01e36cd0bede72,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.470215
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4047577703808711522, guid: ae597f9bdcc67fc44b01e36cd0bede72,
         type: 3}
