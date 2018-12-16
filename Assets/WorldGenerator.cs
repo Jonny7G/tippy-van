@@ -56,6 +56,7 @@ public class WorldGenerator : MonoBehaviour
         TrackData startTrack = startRoad.GetComponent<TrackData>();
         startTrack.transform.position = transform.position;
         lastTrack = startTrack;
+
         while (gameState.GameActive)
         {
             if (lastTrack.transform.position.y > maxY)
