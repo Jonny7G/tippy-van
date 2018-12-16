@@ -20,8 +20,8 @@ public class GameStateManager : ScriptableObject
 
     public void RestartGame()
     {
-        OnGameReload.Raise();
         GameActive = true;
+        OnGameReload.Raise();
     }
 
     public void PlayerFallen()

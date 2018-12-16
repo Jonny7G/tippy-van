@@ -17,9 +17,6 @@ public class TrackData : MonoBehaviour
 
     void Awake() //needs to be in Awake so its called before OnEnable.
     {
-        myPoolable = GetComponent<Poolable>();
-        myPoolable.OnEndReached += () =>{TrackGenerator.instance.RemoveActive(this);};
-
         if (hasDeviations)
             spriteRenderer = GetComponent<SpriteRenderer>();
 

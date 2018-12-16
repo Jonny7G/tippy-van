@@ -176,7 +176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177953313
 GameObject:
@@ -188,6 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 177953315}
   - component: {fileID: 177953314}
+  - component: {fileID: 177953316}
   m_Layer: 0
   m_Name: WorldGenerator
   m_TagString: Untagged
@@ -219,6 +220,7 @@ MonoBehaviour:
     type: 3}
   maxY: -10
   direction: {fileID: 11400000, guid: 99365719c59e55d41bb662ebac5af38c, type: 2}
+  worldSpeed: {fileID: 11400000, guid: 8bd667e3f0b22e94cb5c4683ae3d6224, type: 2}
   gameState: {fileID: 11400000, guid: 85d79d84cf235f84f8e4aebe90774306, type: 2}
 --- !u!4 &177953315
 Transform:
@@ -232,38 +234,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &186326306
-GameObject:
+--- !u!114 &177953316
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 186326307}
-  m_Layer: 0
-  m_Name: WorldObjects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &186326307
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186326306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4569104, y: -0.36958346, z: 0.0009765625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 177953313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecac9427cbf45b04d977433e2b59edfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 177953314}
+        m_MethodName: OnGameReload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Event: {fileID: 11400000, guid: da3f4732a3ee2254ebeef4270ea50f05, type: 2}
 --- !u!1 &309791607
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +578,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559614557
 GameObject:
@@ -672,7 +673,7 @@ RectTransform:
   - {fileID: 418952221}
   - {fileID: 309791608}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -770,7 +771,7 @@ Transform:
   - {fileID: 1828514182}
   - {fileID: 1906608753}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &583270258
 MonoBehaviour:
@@ -1371,7 +1372,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1013242142
 MonoBehaviour:
@@ -1610,6 +1611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1911055344}
   - component: {fileID: 1911055343}
+  - component: {fileID: 1911055345}
   m_Layer: 0
   m_Name: Pooler
   m_TagString: Untagged
@@ -1630,6 +1632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeObjects: []
+  OnPoolReset: {fileID: 11400000, guid: da3f4732a3ee2254ebeef4270ea50f05, type: 2}
 --- !u!4 &1911055344
 Transform:
   m_ObjectHideFlags: 0
@@ -1642,8 +1645,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1911055345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911055342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecac9427cbf45b04d977433e2b59edfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1911055343}
+        m_MethodName: ResetPool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Event: {fileID: 11400000, guid: d0ab5968fb395984eb0e86d23467a492, type: 2}
 --- !u!1 &1925657483
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,7 +6895,7 @@ PrefabInstance:
     - target: {fileID: 4047577703808711522, guid: ae597f9bdcc67fc44b01e36cd0bede72,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4047577703808711522, guid: ae597f9bdcc67fc44b01e36cd0bede72,
         type: 3}
