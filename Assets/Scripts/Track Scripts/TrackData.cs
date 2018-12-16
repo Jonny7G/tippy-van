@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackData : MonoBehaviour,IEntity
+[RequireComponent(typeof(Poolable))]
+public class TrackData : MonoBehaviour
 {
     public Vector2 BackConnection { get { return _backConnection.position; } }
-    public string PoolTag { get { return _poolTag; } }
-
-    [SerializeField] private string _poolTag;
+    
     [SerializeField] private Transform _backConnection;
+    [SerializeField] private bool hasDeviations;
     [SerializeField] private Sprite[] tileDeviations;
+    [SerializeField] private CoinBehaviour[] containedCoins;
 
     private SpriteRenderer spriteRenderer;
-    [SerializeField]private CoinBehaviour[] containedCoins;
+    private Poolable myPoolable;
 
     void Awake() //needs to be in Awake so its called before OnEnable.
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        myPoolable = GetComponent<Poolable>();
+        myPoolable.OnEndReached += () =>{TrackGenerator.instance.RemoveActive(this);};
+
+        if (hasDeviations)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
         foreach (CoinBehaviour coin in containedCoins)
             coin.gameObject.SetActive(false);
     }
@@ -29,11 +35,7 @@ public class TrackData : MonoBehaviour,IEntity
         foreach (CoinBehaviour coin in containedCoins)
             coin.RollSpawnChance();
 
-        spriteRenderer.sprite = tileDeviations[Random.Range(0, tileDeviations.Length-1)];
-    }
-    public void EndReached()
-    {
-        ObjectPooler.instance.RequeObject(PoolTag, gameObject);
-        TrackGenerator.instance.RemoveActive(this);
+        if (hasDeviations)
+            spriteRenderer.sprite = tileDeviations[Random.Range(0, tileDeviations.Length-1)];
     }
 }

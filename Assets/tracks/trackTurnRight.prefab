@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 126}
   - component: {fileID: 125}
   - component: {fileID: 93}
+  - component: {fileID: 8480132504800624221}
   m_Layer: 8
   m_Name: trackTurnRight
   m_TagString: TurnTile
@@ -120,8 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6192b18e4961235418089029586a8df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolTag: down_turn_right
   _backConnection: {fileID: 73}
+  hasDeviations: 0
   tileDeviations:
   - {fileID: 21300000, guid: 2724ba640170b4d4ab9a00d2418942d6, type: 3}
   - {fileID: 21300000, guid: 2724ba640170b4d4ab9a00d2418942d6, type: 3}
@@ -151,6 +152,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8480132504800624221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &42
 GameObject:
   m_ObjectHideFlags: 0

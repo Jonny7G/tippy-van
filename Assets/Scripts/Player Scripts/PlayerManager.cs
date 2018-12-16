@@ -100,7 +100,7 @@ public class PlayerManager : MonoBehaviour
             {
                 turnMissed = true;
                 acceptingInput = false;
-                //onMissedTurn.Raise();
+                onMissedTurn.Raise();
             }
         }
         else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
@@ -148,12 +148,11 @@ public class PlayerManager : MonoBehaviour
         {
             if (roadEntered && !turnMissed) //checks for ground to start loose condition.
             {
-                Debug.Log("WHY GOD");
                 if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
                 {
                     turnMissed = true;
                     acceptingInput = false;
-                    //onMissedTurn.Raise();
+                    onMissedTurn.Raise();
                 }
             }
             else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.

@@ -6,4 +6,5 @@ public interface IEntity
 {
     void EndReached();
     string PoolTag { get;}
+    int Key { get; set; }
 }

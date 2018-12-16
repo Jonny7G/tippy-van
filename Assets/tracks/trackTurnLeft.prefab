@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 4263479216275666392}
   - component: {fileID: 1016262332264910028}
   - component: {fileID: 1849507768726023196}
+  - component: {fileID: 3828285235007422494}
   m_Layer: 8
   m_Name: trackTurnLeft
   m_TagString: TurnTile
@@ -297,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6192b18e4961235418089029586a8df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolTag: down_turn_left
   _backConnection: {fileID: 2682196340295002990}
+  hasDeviations: 0
   tileDeviations:
   - {fileID: 21300000, guid: 2724ba640170b4d4ab9a00d2418942d6, type: 3}
   - {fileID: 21300000, guid: 2724ba640170b4d4ab9a00d2418942d6, type: 3}
@@ -325,6 +326,18 @@ MonoBehaviour:
   WorldObject: {fileID: 11400000, guid: d79eced2df491b941bc308cf3911fead, type: 2}
   TurnTriggered: {fileID: 11400000, guid: c0d1957ab5be6f1468cde5b3da6364bc, type: 2}
   TurnExited: {fileID: 11400000, guid: 24393f40a8ebad54cb988f070a2625a8, type: 2}
+--- !u!114 &3828285235007422494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682196341040721874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7067918635981847897
 GameObject:
   m_ObjectHideFlags: 0

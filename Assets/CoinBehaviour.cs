@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinBehaviour : MonoBehaviour,IEntity
+public class CoinBehaviour : MonoBehaviour
 {
     [Header("Fields")]
     [Range(0,1)]
@@ -13,8 +13,6 @@ public class CoinBehaviour : MonoBehaviour,IEntity
     [Header("Events")]
     [SerializeField] private GameEvent coinCollected;
     
-    public string PoolTag => _poolTag;
-
     public void EndReached()
     {
         ObjectPooler.instance.RequeObject(_poolTag, gameObject);
