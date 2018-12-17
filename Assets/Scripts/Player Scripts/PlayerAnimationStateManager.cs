@@ -10,7 +10,9 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [SerializeField] private string turnTrigger;
     [SerializeField] private string resetTriggerName;
     [SerializeField] private string wrongTurnTriggerName;
-    [SerializeField] private string fallTriggerName;
+    [SerializeField] private string fallTriggerLeftName;
+    [SerializeField] private string fallTriggerRightName;
+
     [Space()]
     [Header("References")]
     [SerializeField] private WorldDirectionReference playerDirection;
@@ -45,7 +47,15 @@ public class PlayerAnimationStateManager : MonoBehaviour
     public void MissedTurnFallAnim()
     {
         inFailTurn = true;
-        playerAnimator.SetTrigger(fallTriggerName);
+        switch (playerDirection.direction)
+        {
+            case WorldDirection.left:
+                playerAnimator.SetTrigger(fallTriggerLeftName);
+                break;
+            case WorldDirection.right:
+                playerAnimator.SetTrigger(fallTriggerRightName);
+                break;
+        }
     }
     public void SwitchState()
     {

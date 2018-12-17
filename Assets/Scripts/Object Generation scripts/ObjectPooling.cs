@@ -7,6 +7,7 @@ public class ObjectPooling : MonoBehaviour
     public static ObjectPooling instance;
     
     public List<Poolable> activeObjects;
+#pragma warning disable IDE0044 // Add readonly modifier
     [SerializeField]private GameEvent OnPoolReset;
     private Dictionary<int, Queue<Poolable>> PooledObjects = new Dictionary<int, Queue<Poolable>>();
     private Dictionary<int, Poolable> ReferenceList = new Dictionary<int, Poolable>();
@@ -17,11 +18,6 @@ public class ObjectPooling : MonoBehaviour
             Destroy(this);
         else
         instance = this;
-    }
-
-    private void Update()
-    {
-        Debug.Log(instance);
     }
     public void SetPool(Poolable obj,int key,int amount)
     {

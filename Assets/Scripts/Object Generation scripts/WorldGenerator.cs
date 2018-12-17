@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
+#pragma warning disable IDE0044 // Add readonly modifier
     [Header("Fields")]
     [SerializeField] private Poolable startArea;
     [SerializeField] private Poolable leftRoad;
@@ -11,6 +12,8 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Poolable leftTurnRoad;
     [SerializeField] private Poolable rightTurnRoad;
     [SerializeField] private float maxY;
+    [Range(0,1)]
+    [SerializeField] private float directionSwitchChance;
     [Header("References")]
     [SerializeField] private Vector3Reference direction;
     [SerializeField] private FloatReference worldSpeed;
@@ -45,6 +48,7 @@ public class WorldGenerator : MonoBehaviour
 
         rightTurnRoadKey = pooler.GetUniqueID();
         pooler.SetPool(rightTurnRoad,rightTurnRoadKey, 100);
+
         loop = SpawnLoop();
         StartCoroutine(loop);
     }
@@ -56,21 +60,42 @@ public class WorldGenerator : MonoBehaviour
         TrackData startTrack = startRoad.GetComponent<TrackData>();
         startTrack.transform.position = transform.position;
         lastTrack = startTrack;
-        Debug.Log(startRoad);
 
         while (gameState.GameActive)
         {
             if (lastTrack.transform.position.y > maxY)
             {
-                Poolable newRoad = pooler.GetFromPool(GetCurrentRoadKey());
-                TrackData newTrack = newRoad.GetComponent<TrackData>();
+                GenerateRoad();
 
-                newTrack.transform.position = lastTrack.BackConnection;
-                lastTrack = newTrack;
+                if (RollDirectionChange())
+                    GenerateTurn();
+                
+                for(int i = pooler.activeObjects.Count - 1; i >= 0; i--)
+                {
+                    pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
+                }
             }
 
             yield return null;
         }
+    }
+    public void GenerateRoad()
+    {
+        Poolable newRoad = pooler.GetFromPool(GetCurrentRoadKey());
+        TrackData newTrack = newRoad.GetComponent<TrackData>();
+
+        newTrack.transform.position = lastTrack.BackConnection;
+        lastTrack = newTrack;
+    }
+    public void GenerateTurn()
+    {
+        worldDirection = SwitchDirection(worldDirection);
+
+        Poolable newRoad = pooler.GetFromPool(GetTurnRoadKey());
+        TrackData newTrack = newRoad.GetComponent<TrackData>();
+
+        newTrack.transform.position = lastTrack.BackConnection;
+        lastTrack = newTrack;
     }
     public void OnGameReload()
     {
@@ -89,6 +114,34 @@ public class WorldGenerator : MonoBehaviour
                 return rightRoadKey;
         }
         return 0;
+    }
+    private int GetTurnRoadKey()
+    {
+        switch (worldDirection)
+        {
+            case WorldDirection.left:
+                return leftTurnRoadKey;
+            case WorldDirection.right:
+                return rightTurnRoadKey;
+        }
+
+        return 0;
+    }
+    private WorldDirection SwitchDirection(WorldDirection current)
+    {
+        switch (current)
+        {
+            case WorldDirection.left:
+                return WorldDirection.right;
+            case WorldDirection.right:
+                return WorldDirection.left;
+        }
+
+        return 0;
+    }
+    private bool RollDirectionChange()
+    {
+        return Random.Range(0f, 1f) <= directionSwitchChance;
     }
     private void Update()
     {

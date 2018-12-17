@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CoinBehaviour : MonoBehaviour
 {
+#pragma warning disable IDE0044 // Add readonly modifier
     [Header("Fields")]
     [Range(0,1)]
     [SerializeField] private float spawnChance;
     [Header("Variables")]
     [SerializeField] private TransformVariable recentCoin;
+    [SerializeField] private IntVariable score;
     [Header("Events")]
     [SerializeField] private GameEvent coinCollected;
 
@@ -23,6 +25,7 @@ public class CoinBehaviour : MonoBehaviour
     {
         recentCoin.Value = transform;
         coinCollected.Raise();
+        score.Value++;
         gameObject.SetActive(false);
     }
 }

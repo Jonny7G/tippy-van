@@ -152,6 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChance: 0.013
-  _poolTag: coin
   recentCoin: {fileID: 11400000, guid: b136c2a859b8bd841a1b1ee38e739192, type: 2}
+  score: {fileID: 11400000, guid: 2103d27e8c00cfb4d9a5769c9710c159, type: 2}
   coinCollected: {fileID: 11400000, guid: be51bd0609f39c44cab8c210560c6810, type: 2}
