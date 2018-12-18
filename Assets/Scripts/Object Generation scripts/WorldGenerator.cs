@@ -18,7 +18,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Vector3Reference direction;
     [SerializeField] private FloatReference worldSpeed;
     [Header("Scriptable objects")]
-    [SerializeField] private GameStateManager gameState;
+    [SerializeField] private BoolReference gameActive;
 
     private int leftRoadKey;
     private int rightRoadKey;
@@ -52,6 +52,7 @@ public class WorldGenerator : MonoBehaviour
         loop = SpawnLoop();
         StartCoroutine(loop);
     }
+
     private IEnumerator SpawnLoop()
     {
         worldDirection = WorldDirection.left;
@@ -61,7 +62,9 @@ public class WorldGenerator : MonoBehaviour
         startTrack.transform.position = transform.position;
         lastTrack = startTrack;
 
-        while (gameState.GameActive)
+        yield return new WaitUntil(() => gameActive.value);
+
+        while (gameActive.value)
         {
             if (lastTrack.transform.position.y > maxY)
             {
@@ -145,7 +148,7 @@ public class WorldGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if(gameState.GameActive)
+        if(gameActive.value)
             MoveActiveObjects();
     }
     private void MoveActiveObjects()

@@ -4,39 +4,50 @@ using UnityEngine;
 
 public class ProgressData : MonoBehaviour
 {
-    private ScoreData scoreData;
-#pragma warning disable IDE0044 // Add readonly modifier
-    [SerializeField] private IntVariable score;
+    [SerializeField] private IntVariable scoreVar;
+    [SerializeField] private IntVariable highScoreVar;
+    [Header("Events")]
+    [SerializeField] private GameEvent OnScoreSet;
     private string savePath;
+    private ScoreData scoreData;
 
     private void Start()
     {
         savePath = System.IO.Path.Combine(Application.persistentDataPath, "ProgressData.txt");
+
         ResetScore();
-        scoreData = new ScoreData();
         InitializeScore();
+
+        highScoreVar.Value = scoreData.HighScore;
     }
-    public void ResetScore() => score.Value = 0;
+
+    public void ResetScore() => scoreVar.Value = 0;
+
     public void ResetHighScore()
     {
         if(Application.IsPlaying(gameObject))
         {
-            scoreData.HighScore = 0;
+            highScoreVar.Value = scoreData.HighScore = 0;
             SavingSystem.SaveProgress(scoreData, savePath);
         }
     }
-    public void SetScore()
-    {
-        scoreData.TotalScore += score.Value;
 
-        if (score.Value > scoreData.HighScore)
-            scoreData.HighScore = score.Value;
-
-        SavingSystem.SaveProgress(scoreData, savePath);
-    }
     public void InitializeScore()
     {
-        scoreData = SavingSystem.LoadProgress(scoreData, savePath);
+        scoreData = new ScoreData();
+        SavingSystem.LoadProgress(out scoreData, savePath);
+        highScoreVar.Value = scoreData.HighScore;
+    }
+
+    public void SetScore()
+    {
+        scoreData.TotalScore += scoreVar.Value;
+
+        if (scoreVar.Value > scoreData.HighScore)
+            highScoreVar.Value = scoreData.HighScore = scoreVar.Value;
+
+        SavingSystem.SaveProgress(scoreData, savePath);
+        OnScoreSet.Raise();
     }
 }
 

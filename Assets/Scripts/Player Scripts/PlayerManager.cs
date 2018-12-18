@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float accelarationMagnitude=0f;
     
     [Header("SO's")]
-    [SerializeField] private GameStateManager gameStateManager;
+    [SerializeField] private BoolReference gameActive;
     [Header("Variables")]
     [SerializeField] private WorldDirectionVariable direction;
     [SerializeField] private Vector3Variable directionCoords;
@@ -51,9 +51,11 @@ public class PlayerManager : MonoBehaviour
     private bool roadEntered = false;
     private bool activatedAnim = false;
     private RaycastHit2D[] results;
-
+    private SpriteRenderer sr;
     private void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+        worldSpeed.Value = 0;
         results = new RaycastHit2D[20];
         ResetOnReload();
     }
@@ -72,7 +74,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStateManager.GameActive)
+
+        if (gameActive.value)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -105,9 +108,19 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
+        if (!acceptingInput)
+        {
+            if (!gameActive.value || !roadEntered)
+            {
+                if (direction.value != WorldDirection.left)
+                    SetDirection(WorldDirection.left, Vector2.right);
+                if (sr.flipX)
+                    sr.flipX = false;
+            }
+        }
 
 #if UNITY_EDITOR
-        if (gameStateManager.GameActive)
+        if (gameActive.value)
         {
             if (autoDirectionChange)
             {
@@ -171,7 +184,10 @@ public class PlayerManager : MonoBehaviour
 
         return newCord;
     }
-
+    public void StartGame()
+    {
+        worldSpeed.Value = DefaultWorldSpeed;
+    }
     public void ResetOnReload()
     {
         StopAllCoroutines();

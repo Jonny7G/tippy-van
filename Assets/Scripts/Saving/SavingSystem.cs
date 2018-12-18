@@ -3,22 +3,21 @@ using System.IO;
 
 public static class SavingSystem
 {
-    public static void SaveProgress(ScoreData data, string path)
+    public static void SaveProgress<T>(T t, string path)
     {
-        string jsonString = JsonUtility.ToJson(data);
-        Debug.Log(jsonString);
+        string jsonString = JsonUtility.ToJson(t);
         using (StreamWriter streamWriter = File.CreateText(path))
         {
             streamWriter.Write(jsonString);
         }
     }
 
-    public static ScoreData LoadProgress(ScoreData data,string path)
+    public static void LoadProgress<T>(out T t,string path)
     {
         using (StreamReader streamReader = File.OpenText(path))
         {
             string jsonString = streamReader.ReadToEnd();
-            return JsonUtility.FromJson<ScoreData>(jsonString);
+            t = JsonUtility.FromJson<T>(jsonString);
         } 
     }
 }

@@ -6,9 +6,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject deathPanel;
-    [Header("SO's")]
-    [SerializeField] private GameStateManager gameState;
-
     private int score = 0;
     
     public void ActivateDeathPanel()

@@ -20,7 +20,7 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [SerializeField] private GameStateManager gameState;
     [Header("Events")]
     [SerializeField]private GameEvent OnAnimEnd;
-
+    [SerializeField] private GameEvent OnGameOver;
     private bool inFailTurn;
 
     private void Start()
@@ -66,5 +66,5 @@ public class PlayerAnimationStateManager : MonoBehaviour
         }
     }
     public void TurnEnd() => OnAnimEnd.Raise();
-    public void GameOver() => gameState.GameOver();
+    public void GameOver() => OnGameOver.Raise();
 }

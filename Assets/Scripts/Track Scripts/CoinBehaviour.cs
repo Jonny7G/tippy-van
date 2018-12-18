@@ -14,6 +14,12 @@ public class CoinBehaviour : MonoBehaviour
     [Header("Events")]
     [SerializeField] private GameEvent coinCollected;
 
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     public void RollSpawnChance()
     {
         float roll = Random.Range(0f, 1f);
@@ -26,6 +32,7 @@ public class CoinBehaviour : MonoBehaviour
         recentCoin.Value = transform;
         coinCollected.Raise();
         score.Value++;
-        gameObject.SetActive(false);
+        animator.SetTrigger("pickedUp");
     }
+    public void Deactivate() => gameObject.SetActive(false);
 }
