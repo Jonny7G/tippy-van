@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
-#pragma warning disable IDE0044 // Add readonly modifier
-    [Header("Fields")]
+    [Header("Default roads")]
     [SerializeField] private Poolable startArea;
     [SerializeField] private Poolable leftRoad;
     [SerializeField] private Poolable rightRoad;
     [SerializeField] private Poolable leftTurnRoad;
     [SerializeField] private Poolable rightTurnRoad;
+    [Header("Specials")]
+    [SerializeField] private float specialsCooldownMin=0f, speciaCooldownMax=0f;
+    [SerializeField] private Poolable leftAirSection;
+    [SerializeField] private Poolable rightAirSection;
     [SerializeField] private float maxY;
     [Range(0,1)]
     [SerializeField] private float directionSwitchChance;
@@ -20,16 +23,22 @@ public class WorldGenerator : MonoBehaviour
     [Header("Scriptable objects")]
     [SerializeField] private BoolReference gameActive;
 
+    private int startAreaKey;
+
     private int leftRoadKey;
     private int rightRoadKey;
+
     private int leftTurnRoadKey;
     private int rightTurnRoadKey;
-    private int startAreaKey;
+
+    private int leftAirSectionKey;
+    private int rightAirSectionKey;
 
     private ObjectPooling pooler;
     private TrackData lastTrack;
     private WorldDirection worldDirection;
     private IEnumerator loop;
+
     private void Start()
     {
         pooler = ObjectPooling.instance;
@@ -49,6 +58,12 @@ public class WorldGenerator : MonoBehaviour
         rightTurnRoadKey = pooler.GetUniqueID();
         pooler.SetPool(rightTurnRoad,rightTurnRoadKey, 100);
 
+        leftAirSectionKey = pooler.GetUniqueID();
+        pooler.SetPool(leftAirSection, leftAirSectionKey, 10);
+
+        rightAirSectionKey = pooler.GetUniqueID();
+        pooler.SetPool(rightAirSection, rightAirSectionKey, 10);
+
         loop = SpawnLoop();
         StartCoroutine(loop);
     }
@@ -64,72 +79,80 @@ public class WorldGenerator : MonoBehaviour
 
         yield return new WaitUntil(() => gameActive.value);
 
+        float timeElapsed=0f;
+        float timeToWait = Random.Range(specialsCooldownMin,speciaCooldownMax);
+
         while (gameActive.value)
         {
-            if (lastTrack.transform.position.y > maxY)
-            {
-                GenerateRoad();
+            timeElapsed += Time.deltaTime;
 
-                if (RollDirectionChange())
-                    GenerateTurn();
-                
-                for(int i = pooler.activeObjects.Count - 1; i >= 0; i--)
+            if (timeElapsed > timeToWait)
+            {
+                timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
+                timeElapsed = 0f;
+
+                GenerateTrack(GetKey(leftAirSectionKey, rightAirSectionKey)); //generate special
+
+                for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
                 {
                     pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
+                }
+            }
+
+            if (lastTrack.transform.position.y > maxY)
+            {
+                GenerateTrack(GetKey(leftRoadKey,rightRoadKey)); //generate normal
+
+                for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
+                {
+                    pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
+                }
+
+                if (RollDirectionChange())
+                {
+                    worldDirection = SwitchDirection(worldDirection);
+                    GenerateTrack(GetKey(leftTurnRoadKey, rightTurnRoadKey)); //generate turn
+
+                    for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
+                    {
+                        pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
+                    }
                 }
             }
 
             yield return null;
         }
     }
-    public void GenerateRoad()
+
+    public void GenerateTrack(int key)
     {
-        Poolable newRoad = pooler.GetFromPool(GetCurrentRoadKey());
-        TrackData newTrack = newRoad.GetComponent<TrackData>();
+        Poolable track = pooler.GetFromPool(key);
+        TrackData newTrack = track.GetComponent<TrackData>();
 
         newTrack.transform.position = lastTrack.BackConnection;
         lastTrack = newTrack;
     }
-    public void GenerateTurn()
-    {
-        worldDirection = SwitchDirection(worldDirection);
 
-        Poolable newRoad = pooler.GetFromPool(GetTurnRoadKey());
-        TrackData newTrack = newRoad.GetComponent<TrackData>();
-
-        newTrack.transform.position = lastTrack.BackConnection;
-        lastTrack = newTrack;
-    }
     public void OnGameReload()
     {
         StopCoroutine(loop);
         loop = SpawnLoop();
         StartCoroutine(loop);
     }
-    private int GetCurrentRoadKey()
+
+    private int GetKey(int left, int right)
     {
         switch (worldDirection)
         {
             case WorldDirection.left:
-                return leftRoadKey;
-                
+                return left;
             case WorldDirection.right:
-                return rightRoadKey;
-        }
-        return 0;
-    }
-    private int GetTurnRoadKey()
-    {
-        switch (worldDirection)
-        {
-            case WorldDirection.left:
-                return leftTurnRoadKey;
-            case WorldDirection.right:
-                return rightTurnRoadKey;
+                return right;
         }
 
         return 0;
     }
+    
     private WorldDirection SwitchDirection(WorldDirection current)
     {
         switch (current)
@@ -139,25 +162,27 @@ public class WorldGenerator : MonoBehaviour
             case WorldDirection.right:
                 return WorldDirection.left;
         }
-
         return 0;
     }
+
     private bool RollDirectionChange()
     {
         return Random.Range(0f, 1f) <= directionSwitchChance;
     }
+
     private void Update()
     {
         if(gameActive.value)
             MoveActiveObjects();
     }
+
     private void MoveActiveObjects()
     {
         for (int i = pooler.activeObjects.Count - 1; i >=0; i--)
         {
             pooler.activeObjects[i].transform.position += direction.value*Time.deltaTime* worldSpeed.value;
 
-            if (pooler.activeObjects[i].transform.position.y > 12)
+            if (pooler.activeObjects[i].transform.position.y > 18)
                 pooler.activeObjects[i].EndReached();
         }
     }

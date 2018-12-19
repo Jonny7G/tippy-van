@@ -77,16 +77,6 @@ public class PlayerManager : MonoBehaviour
 
         if (gameActive.value)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (acceptingInput)
-                {
-                    acceptingInput = false;
-                    SlowDown();
-                    ActivateAnim();
-                }
-            }
-
             if (roadEntered) //checks for ground to start loose condition.
             {
                 if (!activatedAnim)
@@ -108,6 +98,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
+
         if (!acceptingInput)
         {
             if (!gameActive.value || !roadEntered)
@@ -118,8 +109,39 @@ public class PlayerManager : MonoBehaviour
                     sr.flipX = false;
             }
         }
+#if UNITY_ANDROID
+        if (gameActive.value)
+        {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
 
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (acceptingInput)
+                    {
+                        acceptingInput = false;
+                        SlowDown();
+                        ActivateAnim();
+                    }
+                }
+            }
+        }
+#endif
 #if UNITY_EDITOR
+        if (gameActive.value)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (acceptingInput)
+                {
+                    acceptingInput = false;
+                    SlowDown();
+                    ActivateAnim();
+                }
+            }
+        }
+
         if (gameActive.value)
         {
             if (autoDirectionChange)
