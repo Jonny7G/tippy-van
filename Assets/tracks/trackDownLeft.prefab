@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1849462d456f69843aeca38ccfa492ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,8 +102,8 @@ BoxCollider2D:
   m_Offset: {x: -0.23, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.56374997, y: 0.9803371}
-    oldSize: {x: 25, y: 11.125}
+    pivot: {x: 0.1673913, y: 0.9803371}
+    oldSize: {x: 14.375, y: 11.125}
     newSize: {x: 1.25, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -127,12 +127,12 @@ MonoBehaviour:
   _backConnection: {fileID: 2361855781437775005}
   hasDeviations: 1
   tileDeviations:
-  - {fileID: 21300000, guid: 1849462d456f69843aeca38ccfa492ba, type: 3}
-  - {fileID: 21300000, guid: 3dd4062e5d9cff543b8f891e22e0fbcc, type: 3}
-  - {fileID: 21300000, guid: b4d607b3df2282b44bacaed25ae68dd8, type: 3}
-  - {fileID: 21300000, guid: 41f8712a1c3117741accc7abcc39bb91, type: 3}
-  - {fileID: 21300000, guid: 41f8712a1c3117741accc7abcc39bb91, type: 3}
-  - {fileID: 21300000, guid: 41f8712a1c3117741accc7abcc39bb91, type: 3}
+  - {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
+  - {fileID: 21300000, guid: 7a3f05b66eb226043b0bdc4ee8ae68a9, type: 3}
+  - {fileID: 21300000, guid: c94b23daf55c1a3428142a09d4dfed42, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
   containedCoins:
   - {fileID: 562689525010890555}
 --- !u!50 &2876734482555174625
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9116925878270502464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.591, y: -0.34, z: 0}
+  m_LocalPosition: {x: -0.6249924, y: -0.3124938, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2876734482555174628}
@@ -266,6 +266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380030, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &24234317301241756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3892362526256779909}
+  m_Layer: 0
+  m_Name: back_connection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3892362526256779909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24234317301241756}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.56118584, y: -0.2810362, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3084224853724166914}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3084224853724166916
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,9 +61,9 @@ Transform:
   m_LocalPosition: {x: -5.1000905, y: -2.071881, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8612061377122213747}
   - {fileID: 4049906102542512702}
   - {fileID: 6146851018574760927}
+  - {fileID: 3892362526256779909}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,7 +104,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1849462d456f69843aeca38ccfa492ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -118,12 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6192b18e4961235418089029586a8df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backConnection: {fileID: 8612061377122213747}
+  _backConnection: {fileID: 3892362526256779909}
   hasDeviations: 1
   tileDeviations:
-  - {fileID: 21300000, guid: 1849462d456f69843aeca38ccfa492ba, type: 3}
-  - {fileID: 21300000, guid: 3dd4062e5d9cff543b8f891e22e0fbcc, type: 3}
-  - {fileID: 21300000, guid: b4d607b3df2282b44bacaed25ae68dd8, type: 3}
+  - {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
+  - {fileID: 21300000, guid: 7a3f05b66eb226043b0bdc4ee8ae68a9, type: 3}
+  - {fileID: 21300000, guid: c94b23daf55c1a3428142a09d4dfed42, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
   containedCoins:
   - {fileID: 6146851018574760920}
 --- !u!114 &8966436285497548137
@@ -167,7 +200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3084224853724166914}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 63.612003}
 --- !u!61 &4258286661723097211
 BoxCollider2D:
@@ -195,36 +228,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8455788, y: 1.3052375}
   m_EdgeRadius: 0
---- !u!1 &8137564954701926346
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8612061377122213747}
-  m_Layer: 0
-  m_Name: backConnection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8612061377122213747
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137564954701926346}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6464, y: -0.3013, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3084224853724166914}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3291171386099214764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -275,7 +278,7 @@ PrefabInstance:
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}

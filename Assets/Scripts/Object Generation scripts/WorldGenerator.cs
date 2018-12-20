@@ -11,9 +11,13 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Poolable leftTurnRoad;
     [SerializeField] private Poolable rightTurnRoad;
     [Header("Specials")]
-    [SerializeField] private float specialsCooldownMin=0f, speciaCooldownMax=0f;
-    [SerializeField] private Poolable leftAirSection;
-    [SerializeField] private Poolable rightAirSection;
+    [SerializeField] private float specialsCooldownMin = 0f;
+    [SerializeField] private float speciaCooldownMax = 0f;
+    [SerializeField] private Poolable leftWoodBridge;
+    [SerializeField] private Poolable rightWoodBridge;
+    [SerializeField] private Poolable leftLogBridge;
+    [SerializeField] private Poolable rightLogBridge;
+
     [SerializeField] private float maxY;
     [Range(0,1)]
     [SerializeField] private float directionSwitchChance;
@@ -31,8 +35,14 @@ public class WorldGenerator : MonoBehaviour
     private int leftTurnRoadKey;
     private int rightTurnRoadKey;
 
-    private int leftAirSectionKey;
-    private int rightAirSectionKey;
+    private int leftWoodBridgeKey;
+    private int rightWoodBridgeKey;
+
+    private int leftLogBridgeKey;
+    private int rightLogBridgeKey;
+
+    private int[] leftSpecialKeys;
+    private int[] rightSpecialKeys;
 
     private ObjectPooling pooler;
     private TrackData lastTrack;
@@ -58,11 +68,20 @@ public class WorldGenerator : MonoBehaviour
         rightTurnRoadKey = pooler.GetUniqueID();
         pooler.SetPool(rightTurnRoad,rightTurnRoadKey, 100);
 
-        leftAirSectionKey = pooler.GetUniqueID();
-        pooler.SetPool(leftAirSection, leftAirSectionKey, 10);
+        leftWoodBridgeKey = pooler.GetUniqueID();
+        pooler.SetPool(leftWoodBridge, leftWoodBridgeKey, 3);
 
-        rightAirSectionKey = pooler.GetUniqueID();
-        pooler.SetPool(rightAirSection, rightAirSectionKey, 10);
+        rightWoodBridgeKey = pooler.GetUniqueID();
+        pooler.SetPool(rightWoodBridge, rightWoodBridgeKey, 3);
+
+        leftLogBridgeKey = pooler.GetUniqueID();
+        pooler.SetPool(leftLogBridge, leftLogBridgeKey, 3);
+
+        rightLogBridgeKey = pooler.GetUniqueID();
+        pooler.SetPool(rightLogBridge, rightLogBridgeKey, 3);
+
+        leftSpecialKeys = new int[] { leftWoodBridgeKey, leftLogBridgeKey };
+        rightSpecialKeys = new int[] { rightWoodBridgeKey, rightLogBridgeKey };
 
         loop = SpawnLoop();
         StartCoroutine(loop);
@@ -91,32 +110,24 @@ public class WorldGenerator : MonoBehaviour
                 timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
                 timeElapsed = 0f;
 
-                GenerateTrack(GetKey(leftAirSectionKey, rightAirSectionKey)); //generate special
+                int leftKey = Random.Range(0f, 1f) > 0.5f ? leftWoodBridgeKey : leftLogBridgeKey;
+                int rightKey = Random.Range(0f, 1f) > 0.5f ? rightWoodBridgeKey : rightLogBridgeKey;
 
-                for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
-                {
-                    pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
-                }
+                GenerateTrack(GetKey(leftKey,rightKey)); //generate special
+
+                IncrementTracks();
             }
 
             if (lastTrack.transform.position.y > maxY)
             {
                 GenerateTrack(GetKey(leftRoadKey,rightRoadKey)); //generate normal
-
-                for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
-                {
-                    pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
-                }
+                IncrementTracks();
 
                 if (RollDirectionChange())
                 {
                     worldDirection = SwitchDirection(worldDirection);
                     GenerateTrack(GetKey(leftTurnRoadKey, rightTurnRoadKey)); //generate turn
-
-                    for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
-                    {
-                        pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
-                    }
+                    IncrementTracks();
                 }
             }
 
@@ -124,7 +135,15 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateTrack(int key)
+    private void IncrementTracks()
+    {
+        for (int i = pooler.activeObjects.Count - 1; i >= 0; i--)
+        {
+            pooler.activeObjects[i].transform.position += new Vector3(0, 0, 0.5f);
+        }
+    }
+
+    private void GenerateTrack(int key)
     {
         Poolable track = pooler.GetFromPool(key);
         TrackData newTrack = track.GetComponent<TrackData>();
