@@ -10,7 +10,6 @@ public class SetTextToRefrence : MonoBehaviour
     
     public void SetText()
     {
-        Debug.Log(number.value);
         myText.SetText(number.value.ToString());
     }
 }

@@ -4,21 +4,33 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private float min, max;
-    [SerializeField] private float speed;
-    [SerializeField] private Vector3Reference direction;
-    private bool straight = true;
+    [SerializeField] private float maxLagDistance;
+    [SerializeField] private FloatReference worldSpeed;
+    [SerializeField] private Vector3Reference worldDirection;
 
-    private void Start()
+    private bool positionReached=true;
+
+    public void ResetVariables()
     {
-        gameObject.SetActive(true);
-        transform.parent = null;
+        positionReached = true;
     }
-
-    public void MoveCam(float speed)
+    public void StartMovement()
     {
-        //transform.position += new Vector3(direction.value.x * Time.deltaTime * speed, 0, 0);
-
-        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, min, max), transform.position.y, transform.position.z);
+        positionReached = false;
+    }
+    public void IncrementMovement()
+    {
+        if (!positionReached)
+        {
+            if (Vector2.Distance(transform.position, Vector3.zero) < maxLagDistance) //important that this is Vector2 version of distance
+                transform.position += worldDirection.value/2 * worldSpeed.value * Time.deltaTime;
+            else
+                positionReached = true;
+        }
+    }
+    public void Update()
+    {
+        if (positionReached)
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, -100), 1.1f*Time.deltaTime);
     }
 }

@@ -24,9 +24,9 @@ public class WorldGenerator : MonoBehaviour
     [Header("References")]
     [SerializeField] private Vector3Reference direction;
     [SerializeField] private FloatReference worldSpeed;
-    [Header("Scriptable objects")]
     [SerializeField] private BoolReference gameActive;
-
+    [Header("Events")]
+    [SerializeField] private GameEvent OnWorldMove;
     private int startAreaKey;
 
     private int leftRoadKey;
@@ -197,6 +197,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void MoveActiveObjects()
     {
+        OnWorldMove.Raise();
         for (int i = pooler.activeObjects.Count - 1; i >=0; i--)
         {
             pooler.activeObjects[i].transform.position += direction.value*Time.deltaTime* worldSpeed.value;
@@ -204,5 +205,6 @@ public class WorldGenerator : MonoBehaviour
             if (pooler.activeObjects[i].transform.position.y > 18)
                 pooler.activeObjects[i].EndReached();
         }
+        OnWorldMove.Raise();
     }
 }

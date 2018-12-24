@@ -16,7 +16,6 @@ public class Poolable : MonoBehaviour
 
     public void EndReached()
     {
-        Debug.Log(pooler);
         pooler.EnterPool(Key,this);
         OnEndReached?.Invoke();
     }
