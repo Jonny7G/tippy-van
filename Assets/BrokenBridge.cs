@@ -1,0 +1,73 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(TrackData))]
+public class BrokenBridge : MonoBehaviour
+{
+    [Header("Fields")]
+    [SerializeField] private BezierCurvePoints bezierPoints;
+    [Header("References")]
+    [SerializeField] private TransformReference player;
+    [SerializeField] private BoolReference gameActive;
+
+    private bool triggered=false;
+    private TrackData trackData;
+
+    private void Start()
+    {
+        trackData = GetComponent<TrackData>();
+        LoadCoins();
+    }
+
+    private void LoadCoins()
+    {
+        int coinAmount = trackData.containedCoins.Length;
+        for (int i = 1; i < coinAmount+ 1; i++)
+        {
+            float t = i /(float)coinAmount;
+            trackData.containedCoins[i - 1].transform.position = bezierPoints.GetBezierPoint(t);
+        }
+    }
+
+    private IEnumerator MovePlayer()
+    {
+        float t=0;
+        while (t<1 )
+        {
+            t = Mathf.InverseLerp(bezierPoints.startPoint.position.x, bezierPoints.endPoint.position.x, player.value.position.x);
+            player.value.position = new Vector3(0, bezierPoints.GetBezierPoint(t).y, 0);
+
+            yield return null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StartCoroutine(MovePlayer());
+    }
+}
+
+#region structs
+[System.Serializable]
+struct BezierCurvePoints
+{
+    public Transform startPoint;
+    public Transform midPoint;
+    public Transform endPoint;
+
+    public Vector3 GetBezierPoint(float t)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+
+        Vector3 point = uu * startPoint.position;
+
+        point += 2 * u * t * midPoint.position;
+        point += tt * endPoint.position;
+
+        return point;
+    }
+}
+#endregion

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimationStateManager : MonoBehaviour
 {
-    private Animator playerAnimator;
-    private SpriteRenderer spriteRenderer;
+
     [Header("Strings")]
     [SerializeField] private string turnTrigger;
     [SerializeField] private string resetTriggerName;
@@ -21,8 +20,10 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [Header("Events")]
     [SerializeField]private GameEvent OnAnimEnd;
     [SerializeField] private GameEvent OnGameOver;
-    private bool inFailTurn;
 
+    private bool inFailTurn;
+    private Animator playerAnimator;
+    private SpriteRenderer spriteRenderer;
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();

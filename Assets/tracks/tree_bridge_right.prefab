@@ -1254,6 +1254,7 @@ GameObject:
   - component: {fileID: 3968220621179674477}
   - component: {fileID: 2926382110521431359}
   - component: {fileID: 1434783241234420884}
+  - component: {fileID: 5405624840087218285}
   m_Layer: 10
   m_Name: tree_bridge_right
   m_TagString: Untagged
@@ -1359,8 +1360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backConnection: {fileID: 7200563006122237142}
-  hasDeviations: 0
-  tileDeviations: []
   containedCoins:
   - {fileID: 5964154019359938410}
   - {fileID: 3227784255557598058}
@@ -1404,6 +1403,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5405624840087218285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200563005564573070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbcce48591f6e8439579c1350e3f276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasDeviations: 0
+  tileDeviations: []
 --- !u!1 &7200563005892485918
 GameObject:
   m_ObjectHideFlags: 0

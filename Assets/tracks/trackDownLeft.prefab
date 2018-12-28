@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 2876734482555174628}
   - component: {fileID: 2876734482555174629}
   - component: {fileID: 2876734482555174626}
-  - component: {fileID: 2876734482555174627}
   - component: {fileID: 2876734482555174625}
+  - component: {fileID: 2876734482555174627}
   - component: {fileID: 6123778631584940227}
+  - component: {fileID: 6062862944259121026}
   m_Layer: 10
   m_Name: trackDownLeft
   m_TagString: Untagged
@@ -112,29 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &2876734482555174627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876734482555174630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6192b18e4961235418089029586a8df1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _backConnection: {fileID: 2361855781437775005}
-  hasDeviations: 1
-  tileDeviations:
-  - {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
-  - {fileID: 21300000, guid: 7a3f05b66eb226043b0bdc4ee8ae68a9, type: 3}
-  - {fileID: 21300000, guid: c94b23daf55c1a3428142a09d4dfed42, type: 3}
-  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
-  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
-  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
-  containedCoins:
-  - {fileID: 562689525010890555}
 --- !u!50 &2876734482555174625
 Rigidbody2D:
   serializedVersion: 4
@@ -156,6 +134,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2876734482555174627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876734482555174630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6192b18e4961235418089029586a8df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backConnection: {fileID: 2361855781437775005}
+  containedCoins:
+  - {fileID: 562689525010890555}
 --- !u!114 &6123778631584940227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +161,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6062862944259121026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876734482555174630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbcce48591f6e8439579c1350e3f276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasDeviations: 1
+  tileDeviations:
+  - {fileID: 21300000, guid: eba6ea9b457fa7342a6ba345561e2249, type: 3}
+  - {fileID: 21300000, guid: 7a3f05b66eb226043b0bdc4ee8ae68a9, type: 3}
+  - {fileID: 21300000, guid: c94b23daf55c1a3428142a09d4dfed42, type: 3}
+  - {fileID: 21300000, guid: 9a4d8492f6c7d114ba1884dcf4644f22, type: 3}
 --- !u!1 &6393983083045527165
 GameObject:
   m_ObjectHideFlags: 0
