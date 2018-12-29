@@ -168,7 +168,6 @@ public class WorldGenerator : MonoBehaviour
             if (spawnNormally)
             {
                 timeElapsed += Time.deltaTime;
-
                 if (timeElapsed > timeToWait)
                 {
                     timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
@@ -290,7 +289,7 @@ public class WorldGenerator : MonoBehaviour
         {
             pooler.activeObjects[i].transform.position += direction.value*Time.deltaTime* worldSpeed.value;
 
-            if (pooler.activeObjects[i].transform.position.y > 18)
+            if (pooler.activeObjects[i].transform.position.y > 28)
                 pooler.activeObjects[i].EndReached();
         }
         OnWorldMove.Raise();

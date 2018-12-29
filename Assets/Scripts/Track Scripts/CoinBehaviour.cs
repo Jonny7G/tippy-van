@@ -32,6 +32,7 @@ public class CoinBehaviour : MonoBehaviour
         recentCoin.Value = transform;
         coinCollected.Raise();
         score.Value++;
+        AudioManager.instance.PlaySound("coin hit");
         animator.SetTrigger("pickedUp");
     }
     public void Deactivate() => gameObject.SetActive(false);

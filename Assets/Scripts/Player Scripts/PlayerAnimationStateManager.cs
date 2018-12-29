@@ -67,5 +67,9 @@ public class PlayerAnimationStateManager : MonoBehaviour
         }
     }
     public void TurnEnd() => OnAnimEnd.Raise();
-    public void GameOver() => OnGameOver.Raise();
+    public void GameOver()
+    {
+        AudioManager.instance.PlaySound("car crash");
+        OnGameOver.Raise();
+    }
 }

@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private FloatVariable worldSpeed;
     [SerializeField] private BoolVariable inTurn;
     [SerializeField] private BoolVariable executingTurn;
+    [SerializeField] private BoolVariable canTurn;
     [Header("References")]
     [SerializeField] private BoolReference gameActive;
     [SerializeField] private TransformReference WorldObject;
@@ -34,11 +35,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameEvent OnDirectionSwitch;
     [SerializeField] private GameEvent onTurn;
     [SerializeField] private GameEvent onMissedTurn;
-    [SerializeField] private GameEvent OnGameOver;
 
     public float DefaultWorldSpeed { get { return _defaultWorldSpeed; } }
-
-    private bool acceptingInput = true;
+    
     private IEnumerator accelerate;
     private IEnumerator decelerate;
     private bool roadEntered = false;
@@ -82,8 +81,9 @@ public class PlayerManager : MonoBehaviour
                         if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) == 0)
                         {
                             activatedAnim = true;
-                            acceptingInput = false;
+                        canTurn.Value = false;
                             onMissedTurn.Raise();
+                            AudioManager.instance.PlaySound("car fall");
                         }
                         else
                             lastWorldPoint.position = transform.position;
@@ -93,13 +93,13 @@ public class PlayerManager : MonoBehaviour
             {
                 if (Physics2D.RaycastNonAlloc(transform.position, Vector3.forward, results, 100f, allTiles) != 0)
                 {
-                    acceptingInput = true;
+                    canTurn.Value = true;
                     roadEntered = true;
                 }
             }
         }
 
-        if (!acceptingInput)
+        if (!canTurn.Value)
         {
             if (!gameActive.value || !roadEntered)
             {
@@ -118,11 +118,9 @@ public class PlayerManager : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    if (acceptingInput)
+                    if (canTurn.Value)
                     {
-                        acceptingInput = false;
-                        SlowDown();
-                        ActivateAnim();
+                        TurnActivation();
                     }
                 }
             }
@@ -133,17 +131,21 @@ public class PlayerManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (acceptingInput)
+                if (canTurn.Value)
                 {
-                    acceptingInput = false;
-                    SlowDown();
-                    ActivateAnim();
+                    TurnActivation();
                 }
             }
         }
 #endif
     }
-
+    private void TurnActivation()
+    {
+        canTurn.Value = false;
+        SlowDown();
+        ActivateAnim();
+        AudioManager.instance.PlaySound("car turn");
+    }
     private void SwitchDirection()
     {
         if (direction.value == WorldDirection.left)
@@ -183,7 +185,7 @@ public class PlayerManager : MonoBehaviour
         transform.parent.position = Vector3.zero + new Vector3(0, 0, -20);
         ResetDirection();
         inTurn.Value = false;
-        acceptingInput = false;
+        canTurn.Value = false;
         worldSpeed.Value = DefaultWorldSpeed;
         executingTurn.Value = false;
         SetDirection(WorldDirection.left, Vector2.right);
@@ -213,7 +215,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SpeedUp()
     {
-        acceptingInput = true;
+        canTurn.Value = true;
 
         if (accelerate != null)
             StopCoroutine(accelerate);

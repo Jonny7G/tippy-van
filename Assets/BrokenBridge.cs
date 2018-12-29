@@ -12,8 +12,11 @@ public class BrokenBridge : MonoBehaviour
     [SerializeField] private BoolReference gameActive;
 
     private bool triggered=false;
+    private bool inputRecieved;
     private TrackData trackData;
-
+    [SerializeField] private GameEvent bridgeMissed;
+    [SerializeField] private GameEvent bridgeEntered;
+    [SerializeField] private GameEvent bridgeExecuted;
     private void Start()
     {
         trackData = GetComponent<TrackData>();
@@ -30,6 +33,36 @@ public class BrokenBridge : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (triggered)
+        {
+#if UNITY_EDITOR
+            if (!inputRecieved)
+                if (Input.GetMouseButtonDown(0))
+                {
+                    inputRecieved = true;
+                    StartCoroutine(BridgeCheck());
+                }
+#endif
+#if UNITY_ANDROID
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        if (!inputRecieved)
+                        {
+                            inputRecieved = true;
+                            StartCoroutine(BridgeCheck());
+                        }
+                    }
+                }
+#endif
+        }
+    }
+
     private IEnumerator MovePlayer()
     {
         float t=0;
@@ -42,9 +75,34 @@ public class BrokenBridge : MonoBehaviour
         }
     }
 
+    private IEnumerator BridgeCheck()
+    {
+        float timeElapsed = 0;
+        while (timeElapsed < 1)
+        {
+            timeElapsed += Time.deltaTime;
+            if(inputRecieved)
+            {
+                StartCoroutine(MovePlayer());
+                bridgeExecuted.Raise();
+                break;
+            }
+
+            yield return null;
+        }
+        //bridgeMissed.Raise();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(MovePlayer());
+        if (!triggered)
+            bridgeEntered.Raise();
+        triggered = true;
+    }
+    private void OnDisable()
+    {
+        triggered = false;
+        inputRecieved = false;
     }
 }
 

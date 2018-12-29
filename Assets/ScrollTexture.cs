@@ -9,6 +9,8 @@ public class ScrollTexture : MonoBehaviour
     [SerializeField] private FloatReference worldSpeed;
     [Range(0,1)]
     [SerializeField] private float moveFactor;
+    [Header("References")]
+    [SerializeField] private BoolReference gameActive;
     private string textName;
     private Vector2 uvOffset = Vector2.zero;
     float x = 0;
@@ -19,7 +21,10 @@ public class ScrollTexture : MonoBehaviour
 
     void Update()
     {
-        uvOffset -= (Vector2)worldDirection.value.normalized * Time.deltaTime*worldSpeed.value* moveFactor;
-        myRend.material.mainTextureOffset = (uvOffset);
+        if (gameActive.value)
+        {
+            uvOffset -= (Vector2)worldDirection.value.normalized * Time.deltaTime * worldSpeed.value * moveFactor;
+            myRend.material.mainTextureOffset = (uvOffset);
+        }
     }
 }

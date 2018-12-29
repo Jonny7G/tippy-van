@@ -28,7 +28,10 @@ public class UIManager : MonoBehaviour
         score = 0;
         scoreText.text = score.ToString();
     }
-
+    public void ReloadGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+    }
     public void AddScore()
     {
         score++;

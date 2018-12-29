@@ -60,6 +60,8 @@ public class WorldGeneratorEditor : Editor
         _leftTurnRoad = serializedObject.FindProperty("leftTurnRoad");
         _rightTurnRoad = serializedObject.FindProperty("rightTurnRoad");
 
+        _specialsCooldownMin = serializedObject.FindProperty("specialsCooldownMin");
+        _speciaCooldownMax = serializedObject.FindProperty("speciaCooldownMax");
         _leftWoodBridge = serializedObject.FindProperty("leftWoodBridge");
         _rightWoodBridge = serializedObject.FindProperty("rightWoodBridge");
         _leftLogBridge = serializedObject.FindProperty("leftLogBridge");
@@ -77,8 +79,12 @@ public class WorldGeneratorEditor : Editor
         switch (tab)
         {
             case 0:
+                GUILayout.Space(10);
                 EditorGUILayout.PropertyField(_maxY);
                 EditorGUILayout.Slider(_directionSwitchChance, 0, 1);
+                GUILayout.Space(20);
+                EditorGUILayout.PropertyField(_specialsCooldownMin);
+                EditorGUILayout.PropertyField(_speciaCooldownMax);
                 break;
             case 1:
 
