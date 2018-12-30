@@ -66,6 +66,11 @@ public class PlayerAnimationStateManager : MonoBehaviour
             playerAnimator.SetTrigger(turnTrigger);
         }
     }
+    public void TriggerAnim(string triggerName)
+    {
+        playerAnimator.SetTrigger(triggerName);
+    }
+
     public void TurnEnd() => OnAnimEnd.Raise();
     public void GameOver()
     {

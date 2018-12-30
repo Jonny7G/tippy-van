@@ -213,6 +213,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 444183241}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI sfx
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &6529555
@@ -724,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: c9f6d0e7bc8541498c9a4799ba184ede, type: 3}
   m_Color: {r: 1, g: 0.7593924, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -802,6 +813,11 @@ MonoBehaviour:
   - name: car fall
     clip: {fileID: 8300000, guid: 0eed862c99c701e4cb567064bc9259ae, type: 3}
     soundVolume: 0.342
+    randomVolume: 0
+    mute: 0
+  - name: UI sfx
+    clip: {fileID: 8300000, guid: f6371f7cc07389c4f85e3b77ab3b904b, type: 3}
+    soundVolume: 0.371
     randomVolume: 0
     mute: 0
 --- !u!4 &444183242
@@ -932,15 +948,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 444183241}
+        m_MethodName: PlaySound
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: UI sfx
           m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1433,6 +1449,7 @@ GameObject:
   - component: {fileID: 583270263}
   - component: {fileID: 583270262}
   - component: {fileID: 583270261}
+  - component: {fileID: 583270271}
   - component: {fileID: 583270265}
   - component: {fileID: 583270264}
   - component: {fileID: 583270258}
@@ -1633,12 +1650,12 @@ MonoBehaviour:
   allTiles:
     serializedVersion: 2
     m_Bits: 1281
-  _defaultWorldSpeed: 6
+  _defaultWorldSpeed: 5.7
   decelarationMagnitude: 0.76
   decelarationRate: 0.079
   bottomOutValue: 0.1
-  accelarationRate: 0.104
-  accelarationMagnitude: 1.52
+  accelarationRate: 0.04
+  accelarationMagnitude: 1.14
   playerTransform: {fileID: 11400000, guid: 1ae6becc5caa3d64f92bef3072700912, type: 2}
   direction: {fileID: 11400000, guid: ca914064ad6202a4384e0f2708e59cac, type: 2}
   directionCoords: {fileID: 11400000, guid: 6cdf99debf388a74b928dcb3edc88ba3, type: 2}
@@ -1899,6 +1916,35 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   Event: {fileID: 11400000, guid: 641f0bb917f05bb45a7435b462cf0733, type: 2}
+--- !u!114 &583270271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583270255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecac9427cbf45b04d977433e2b59edfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 583270262}
+        m_MethodName: TriggerAnim
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Start
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  Event: {fileID: 11400000, guid: ebfbbb7056f6d1243a640f8fd73f9f1d, type: 2}
 --- !u!1 &865521032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +1997,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -2665,6 +2711,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 583270257}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1108085813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1108085815}
+  - component: {fileID: 1108085814}
+  m_Layer: 0
+  m_Name: ScreenShotting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1108085814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108085813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4719096323bb7ce46b00a786f26eb55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1108085815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108085813}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.054350823, y: 0.0674643, z: 14.087891}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1423721541
 GameObject:
@@ -3591,6 +3680,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 444183241}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI sfx
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
