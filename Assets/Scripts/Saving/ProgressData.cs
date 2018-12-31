@@ -44,8 +44,10 @@ public class ProgressData : MonoBehaviour
         scoreData.TotalScore += scoreVar.Value;
 
         if (scoreVar.Value > scoreData.HighScore)
+        {
             highScoreVar.Value = scoreData.HighScore = scoreVar.Value;
-
+            PlayGamesManager.UploadScore(GPGSIds.leaderboard_retro_road_trip, highScoreVar.Value);
+        }
         SavingSystem.SaveProgress(scoreData, savePath);
         OnScoreSet.Raise();
     }

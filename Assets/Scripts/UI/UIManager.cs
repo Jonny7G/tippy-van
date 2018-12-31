@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject deathPanel;
     private int score = 0;
-
+    
     private void Start()
     {
         ResetScore();
@@ -37,6 +37,9 @@ public class UIManager : MonoBehaviour
         score++;
         scoreText.text = score.ToString();
     }
-
+    public void ShowLeaderBoardUI()
+    {
+        PlayGamesManager.ShowLeaderBoardUI();
+    }
     public void QuitGame() => Application.Quit();
 }
