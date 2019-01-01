@@ -24,7 +24,7 @@
 
 public static class GPGSIds
 {
-        public const string leaderboard_retro_road_trip = "CgkIh7a0hfYXEAIQAA"; // <GPGSID>
+        public const string leaderboard_highscores = "CgkI9JXS6voVEAIQAg"; // <GPGSID>
 
 }
 

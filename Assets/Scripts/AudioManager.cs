@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-
+    
     [SerializeField] private List<Sounds> allSoundClips = new List<Sounds>();
     
     private void Awake()
@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
         else
             instance = this;
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -30,7 +30,6 @@ public class AudioManager : MonoBehaviour
             allSoundClips[i].SetSource(newOb.GetComponent<AudioSource>());
         }
     }
-
     public void PlaySound(string soundName)
     {
         getSound(soundName).PlaySound();

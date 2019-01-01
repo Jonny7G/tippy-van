@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayGamesManager : MonoBehaviour
 {
     public static PlayGamesManager instance;
+
+    private static string lastReportStateName;
     private void Start()
     {
         if (instance != null)
@@ -29,7 +31,7 @@ public class PlayGamesManager : MonoBehaviour
     #region Leaderboards 
     public static void UploadScore(string id,long score)
     {
-        Social.ReportScore(score, id, success=> { });
+        Social.ReportScore(score, id, success=> {});
     }
     public static void ShowLeaderBoardUI()
     {
