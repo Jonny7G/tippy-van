@@ -7,6 +7,7 @@ TextureImporter:
     21300004: UIpackSheet_transparent_2
     21300006: UIpackSheet_transparent_3
     21300008: UIpackSheet_transparent_4
+    21300010: UIpackSheet_transparent_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -199,13 +200,33 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 74b68c6904afdb242aed7595e3f11750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIpackSheet_transparent_5
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 108
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba6ab164cf749f4484e94bd48df5cc7
       vertices: []
       indices: 
       edges: []

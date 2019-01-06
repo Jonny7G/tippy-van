@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 3084224853724166915}
   - component: {fileID: 3084224853724166912}
   - component: {fileID: 3084224853724166927}
-  - component: {fileID: 8966436285497548137}
   - component: {fileID: 6355986356414035401}
   m_Layer: 10
   m_Name: TrackDownRight
@@ -152,18 +151,7 @@ MonoBehaviour:
   _backConnection: {fileID: 3892362526256779909}
   containedCoins:
   - {fileID: 6146851018574760920}
---- !u!114 &8966436285497548137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3084224853724166916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _poolObject: {fileID: 3084224853724166916}
 --- !u!114 &6355986356414035401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.057
       objectReference: {fileID: 0}
     - target: {fileID: 8710690239640380019, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}

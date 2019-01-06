@@ -78,7 +78,7 @@ public class BrokenBridge : MonoBehaviour
     private IEnumerator BridgeCheck()
     {
         float timeElapsed = 0;
-        while (timeElapsed < 1)
+        while (timeElapsed < 1f)
         {
             timeElapsed += Time.deltaTime;
             if(inputRecieved)

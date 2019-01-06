@@ -9,15 +9,9 @@ public class PlayerManager : MonoBehaviour
     [Header("Fields")]
     [SerializeField] private LayerMask allTiles;
     [SerializeField] private float _defaultWorldSpeed=0f;
-    [Range(0, 1)]
-    [SerializeField] private float decelarationMagnitude=0f;
-    [Range(0, 1)]
-    [SerializeField] private float decelarationRate=0f;
     [SerializeField] private float bottomOutValue=0f;
-    [Range(0, 1)]
-    [SerializeField] private float accelarationRate=0f;
-    [Range(0,3)]
-    [SerializeField] private float accelarationMagnitude=0f;
+    [SerializeField] private AnimationCurve decelaration;
+    [SerializeField] private AnimationCurve accelaration;
     [Header("Variables")]
     [SerializeField] private TransformVariable playerTransform;
     [SerializeField] private WorldDirectionVariable direction;
@@ -56,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         worldSpeed.Value = 0;
         results = new RaycastHit2D[20];
         ResetOnReload();
+        bottomOutValue = decelaration.Evaluate(1);
     }
 
     private void SetDirection(WorldDirection direction, Vector3 coordinates)
@@ -204,12 +199,15 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator Decelerate()
     {
+        float perc = 0;
         while (worldSpeed.Value > bottomOutValue)
         {
-            worldSpeed.Value *= decelarationMagnitude;
-            
-            yield return new WaitForSeconds(decelarationRate);
+            worldSpeed.Value = DefaultWorldSpeed * decelaration.Evaluate(perc);
+            perc += Time.deltaTime* 2;
+
+            yield return null;
         }
+        worldSpeed.Value = Mathf.Clamp(worldSpeed.Value, 0, DefaultWorldSpeed);
         SpeedUp();
     }
 
@@ -229,12 +227,14 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator Accelerate()
     {
         SwitchDirection();
+        float perc=0;
         while (worldSpeed.Value < DefaultWorldSpeed)
         {
-            worldSpeed.Value *= accelarationMagnitude;
-            worldSpeed.Value = Mathf.Clamp(worldSpeed.Value, 0.1f, DefaultWorldSpeed);
+            worldSpeed.Value = DefaultWorldSpeed * accelaration.Evaluate(perc);
+            perc += Time.deltaTime * 2.3f;
 
-            yield return new WaitForSeconds(accelarationRate);
+            yield return null;
         }
+        worldSpeed.Value = Mathf.Clamp(worldSpeed.Value, 0, DefaultWorldSpeed);
     }
 }

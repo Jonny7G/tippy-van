@@ -6,58 +6,63 @@ public class ObjectPooling : MonoBehaviour
 {
     public static ObjectPooling instance;
     
-    public List<Poolable> activeObjects;
+    public List<IPoolable> activeObjects;
     [SerializeField]private GameEvent OnPoolReset;
-    private Dictionary<int, Queue<Poolable>> PooledObjects = new Dictionary<int, Queue<Poolable>>();
-    private Dictionary<int, Poolable> ReferenceList = new Dictionary<int, Poolable>();
+    private Dictionary<int, Queue<IPoolable>> PooledObjects = new Dictionary<int, Queue<IPoolable>>();
+    private Dictionary<int, IPoolable> ReferenceList = new Dictionary<int, IPoolable>();
 
     private void Awake()
     {
         if (instance != null)
-            Destroy(this);
+            Destroy(gameObject);
         else
         instance = this;
+
+        activeObjects = new List<IPoolable>();
     }
-    public void SetPool(Poolable obj,int key,int amount)
+    public void SetPool(IPoolable obj,int key,int amount)
     {
-        PooledObjects.Add(key,new Queue<Poolable>());
+
+        PooledObjects.Add(key,new Queue<IPoolable>());
         ReferenceList.Add(key, obj);
 
         for(int i = 0; i < amount; i++)
         {
-            Poolable newOb = Instantiate(obj);
-            newOb.Key = key;
-            PooledObjects[key].Enqueue(newOb);
-            newOb.gameObject.SetActive(false);
+            GameObject Ob = Instantiate(obj.PoolObject);
+            IPoolable poolable = Ob.GetComponent<IPoolable>();
+            poolable.Key = key;
+            PooledObjects[key].Enqueue(poolable);
+            poolable.PoolObject.SetActive(false);
         }
     }
-    public Poolable GetFromPool(int key)
+    public IPoolable GetFromPool(int key)
     {
         try
         {
-            Poolable ob = PooledObjects[key].Dequeue();
-            activeObjects.Add(ob);
-            ob.gameObject.SetActive(true);
-            return ob;
+            IPoolable poolable = PooledObjects[key].Dequeue();
+            activeObjects.Add(poolable);
+            poolable.PoolObject.SetActive(true);
+            return poolable;
         }
         catch(System.Exception ex)
         {
             Debug.LogWarning(ex.Message+" added an additional object");
+            Debug.Log(ReferenceList[key].PoolObject.name);
 
-            Poolable newOb = Instantiate(ReferenceList[key]);
-            newOb.Key = key;
-            PooledObjects[key].Enqueue(newOb);
-            
-            Poolable ob = PooledObjects[key].Dequeue();
-            activeObjects.Add(ob);
-            return ob;
+            GameObject Ob = Instantiate(ReferenceList[key].PoolObject);
+            IPoolable poolable = Ob.GetComponent<IPoolable>();
+            poolable.Key = key;
+            poolable.PoolObject.SetActive(true);
+                        
+            activeObjects.Add(poolable);
+            return poolable;
         }
     }
-    public void EnterPool(int key,Poolable poolObject)
+    public void EnterPool(int key,IPoolable poolObject)
     {
         PooledObjects[key].Enqueue(poolObject);
         activeObjects.Remove(poolObject);
-        poolObject.gameObject.SetActive(false);
+        poolObject.PoolObject.SetActive(false);
     }
     public void ResetPool()
     {

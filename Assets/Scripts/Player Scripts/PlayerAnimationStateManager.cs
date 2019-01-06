@@ -15,14 +15,15 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [Space()]
     [Header("References")]
     [SerializeField] private WorldDirectionReference playerDirection;
-    [Header("SO's")]
-    [SerializeField] private GameStateManager gameState;
+    [SerializeField] private VehicleReference equipedVehicle;
     [Header("Events")]
     [SerializeField]private GameEvent OnAnimEnd;
     [SerializeField] private GameEvent OnGameOver;
 
     private bool inFailTurn;
     private Animator playerAnimator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerAnimator[] allVehicleAnimators;
     private SpriteRenderer spriteRenderer;
     private void Start()
     {
@@ -70,11 +71,26 @@ public class PlayerAnimationStateManager : MonoBehaviour
     {
         playerAnimator.SetTrigger(triggerName);
     }
-
+    public void SetAnimator()
+    {
+        foreach(PlayerAnimator animator in allVehicleAnimators)
+        {
+            if (animator.vehicleType == equipedVehicle.Value)
+            {
+                playerAnimator.runtimeAnimatorController = animator.animator;
+            }
+        }
+    }
     public void TurnEnd() => OnAnimEnd.Raise();
     public void GameOver()
     {
         AudioManager.instance.PlaySound("car crash");
         OnGameOver.Raise();
     }
+}
+[System.Serializable]
+public struct PlayerAnimator
+{
+    public Vehicles vehicleType;
+    public RuntimeAnimatorController animator;
 }

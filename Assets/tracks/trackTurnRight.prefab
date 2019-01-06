@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 108}
   - component: {fileID: 125}
   - component: {fileID: 93}
-  - component: {fileID: 8480132504800624221}
   - component: {fileID: 2926377122105406428}
   m_Layer: 8
   m_Name: trackTurnRight
@@ -108,6 +107,7 @@ MonoBehaviour:
   - {fileID: 6907255888516989028}
   - {fileID: 848438980701616877}
   - {fileID: 197533631871225183}
+  _poolObject: {fileID: 41}
 --- !u!50 &93
 Rigidbody2D:
   serializedVersion: 4
@@ -129,18 +129,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8480132504800624221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2926377122105406428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +187,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12757605, y: -0.92797667}
+  m_Offset: {x: -0.12757605, y: -0.81812716}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -210,7 +198,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7230494, y: 0.8901278}
+  m_Size: {x: 0.7230494, y: 1.1098268}
   m_EdgeRadius: 0
 --- !u!1 &43
 GameObject:
@@ -346,7 +334,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06882286, y: -0.8100369}
+  m_Offset: {x: -0.06882286, y: -0.59233254}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -357,7 +345,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7296499, y: 1.4622104}
+  m_Size: {x: 0.7296499, y: 1.8976191}
   m_EdgeRadius: 0
 --- !u!1001 &2826314693708997136
 PrefabInstance:
@@ -429,7 +417,7 @@ PrefabInstance:
     - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
       propertyPath: spawnChance
-      value: 0.33
+      value: 0.499
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
@@ -521,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
       propertyPath: spawnChance
-      value: 0.33
+      value: 0.499
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
@@ -613,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
       propertyPath: spawnChance
-      value: 0.33
+      value: 0.499
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}

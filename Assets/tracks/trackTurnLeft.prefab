@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.020157516, y: -0.2741509}
+  m_Offset: {x: -0.020157516, y: -0.4760548}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.78283644, y: 1.5045227}
+  m_Size: {x: 0.78283644, y: 1.9083312}
   m_EdgeRadius: 0
 --- !u!1 &2682196339256783135
 GameObject:
@@ -161,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.045336425, y: -0.9979983}
+  m_Offset: {x: 0.045336425, y: -0.82267076}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -172,7 +172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.72038746, y: 0.9991263}
+  m_Size: {x: 0.72038746, y: 1.3497814}
   m_EdgeRadius: 0
 --- !u!1 &2682196341040721874
 GameObject:
@@ -186,7 +186,6 @@ GameObject:
   - component: {fileID: 2682196341040721873}
   - component: {fileID: 4263479216275666392}
   - component: {fileID: 1016262332264910028}
-  - component: {fileID: 3828285235007422494}
   - component: {fileID: 8676891259230087299}
   m_Layer: 8
   m_Name: trackTurnLeft
@@ -303,18 +302,7 @@ MonoBehaviour:
   - {fileID: 3064036557670666431}
   - {fileID: 4239445783524358138}
   - {fileID: 7683113965294390629}
---- !u!114 &3828285235007422494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2682196341040721874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34d545bf8230964d91d517f14aad2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _poolObject: {fileID: 2682196341040721874}
 --- !u!114 &8676891259230087299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +414,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.459
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
 --- !u!4 &7683113965294390626 stripped
@@ -512,6 +505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
+        type: 3}
+      propertyPath: spawnChance
+      value: 0.459
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}
@@ -603,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 8710690239640380020, guid: 34945ca880e756c4da0106bb4b0105ad,
         type: 3}
       propertyPath: spawnChance
-      value: 0.336
+      value: 0.459
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34945ca880e756c4da0106bb4b0105ad, type: 3}

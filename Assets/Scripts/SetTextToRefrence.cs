@@ -8,6 +8,10 @@ public class SetTextToRefrence : MonoBehaviour
 
     [SerializeField] private TMP_Text myText;
     
+    private void Start()
+    {
+        SetText();
+    }
     public void SetText()
     {
         myText.SetText(number.value.ToString());

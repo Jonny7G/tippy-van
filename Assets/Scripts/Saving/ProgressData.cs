@@ -6,8 +6,11 @@ public class ProgressData : MonoBehaviour
 {
     [SerializeField] private IntVariable scoreVar;
     [SerializeField] private IntVariable highScoreVar;
+    [SerializeField] private IntVariable totalScoreVar;
+
     [Header("Events")]
     [SerializeField] private GameEvent OnScoreSet;
+
     private string savePath;
     private ScoreData scoreData;
 
@@ -30,11 +33,20 @@ public class ProgressData : MonoBehaviour
         }
     }
 
+    public void Unlocked(int cost)
+    {
+        scoreData.TotalScore -= cost;
+        totalScoreVar.Value = scoreData.TotalScore;
+        SavingSystem.SaveProgress(scoreData, savePath);
+    }
+
     public void InitializeScore()
     {
         scoreData = new ScoreData();
         SavingSystem.LoadProgress(out scoreData, savePath);
+
         highScoreVar.Value = scoreData.HighScore;
+        totalScoreVar.Value = scoreData.TotalScore;
     }
 
     public void SetScore()
@@ -46,6 +58,8 @@ public class ProgressData : MonoBehaviour
             highScoreVar.Value = scoreData.HighScore = scoreVar.Value;
         }
         PlayGamesManager.UploadScore(GPGSIds.leaderboard_highscores, scoreVar.Value);
+        //uploads everytime as the google play services handles whether or not its valid for us.(also handles setting daily,weekly and all time scores).
+
         SavingSystem.SaveProgress(scoreData, savePath);
         OnScoreSet.Raise();
     }

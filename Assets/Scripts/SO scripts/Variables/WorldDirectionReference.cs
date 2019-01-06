@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewWorldDirectionReference", menuName = "Variables/Custom/Reference/WorldDirection Reference", order = 2)]
+[CreateAssetMenu(fileName = "NewWorldDirectionReference", menuName = "Variables/Custom/Reference/WorldDirection Reference", order = 0)]
 
 public class WorldDirectionReference : ScriptableObject
 {
