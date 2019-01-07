@@ -7,10 +7,10 @@ public class ShopData : MonoBehaviour
     [SerializeField] private GameEvent OnVehicleChange;
     [SerializeField] private VehicleVariable equipedVehicle;
     [SerializeField] private Unlockable[] allActiveUnlockables;
-
     private string savePath;
     private Unlockable activeVehicle;
     private AllUnlocksData data;
+    
     private void Start()
     {
         /*
@@ -79,7 +79,24 @@ public class ShopData : MonoBehaviour
     public void SaveUnlock(UnlockableData unlockable)
     {
         unlockable.locked = false;
+       
+        if (IsAllUnlocked())
+        {
+            if (allActiveUnlockables[allActiveUnlockables.Length-1].myData.locked)
+                allActiveUnlockables[allActiveUnlockables.Length-1].Unlock();
+        }
         SavingSystem.SaveProgress(data, savePath);
+    }
+    private bool IsAllUnlocked()
+    {
+        for(int i = 0; i < allActiveUnlockables.Length-1; i++)
+        {
+            if (allActiveUnlockables[i].myData.locked)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
@@ -109,4 +126,4 @@ public class UnlockableData
         }
     }
 }
-public enum Vehicles { red,lightBlue,orange,purple,darkBlue,green} //this is whats used to identify unlocks and also set the player's animator.
+public enum Vehicles { red,lightBlue,orange,purple,darkBlue,green,rainbow} //this is whats used to identify unlocks and also set the player's animator.

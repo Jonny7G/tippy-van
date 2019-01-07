@@ -25,6 +25,7 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimator[] allVehicleAnimators;
     private SpriteRenderer spriteRenderer;
+    private bool canTurn=true;
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -32,7 +33,6 @@ public class PlayerAnimationStateManager : MonoBehaviour
     }
     public void ResetVarialbles()
     {
-        
         inFailTurn = false;
         spriteRenderer.flipX = false;
     }
@@ -63,8 +63,11 @@ public class PlayerAnimationStateManager : MonoBehaviour
     {
         if (!inFailTurn)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-            playerAnimator.SetTrigger(turnTrigger);
+            if (canTurn)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+                playerAnimator.SetTrigger(turnTrigger);
+            }
         }
     }
     public void TriggerAnim(string triggerName)
@@ -81,7 +84,11 @@ public class PlayerAnimationStateManager : MonoBehaviour
             }
         }
     }
-    public void TurnEnd() => OnAnimEnd.Raise();
+    public void TurnEnd()
+    {
+        canTurn = true;
+        OnAnimEnd.Raise();
+    }
     public void GameOver()
     {
         AudioManager.instance.PlaySound("car crash");

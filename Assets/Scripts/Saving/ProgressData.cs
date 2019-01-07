@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ProgressData : MonoBehaviour
 {
+    public static ProgressData instance;
+
     [SerializeField] private IntVariable scoreVar;
     [SerializeField] private IntVariable highScoreVar;
     [SerializeField] private IntVariable totalScoreVar;
@@ -14,6 +16,13 @@ public class ProgressData : MonoBehaviour
     private string savePath;
     private ScoreData scoreData;
 
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(gameObject);
+        else
+            instance = this;
+    }
     private void Start()
     {
         savePath = System.IO.Path.Combine(Application.persistentDataPath, "ProgressData.txt");
@@ -32,7 +41,12 @@ public class ProgressData : MonoBehaviour
             SavingSystem.SaveProgress(scoreData, savePath);
         }
     }
-
+    public void AddScore()
+    {
+        totalScoreVar.Value += 1000;
+        scoreData.TotalScore = totalScoreVar.Value;
+        SavingSystem.SaveProgress(scoreData, savePath);
+    }
     public void Unlocked(int cost)
     {
         scoreData.TotalScore -= cost;

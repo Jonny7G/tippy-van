@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Events;
 public class Unlockable : MonoBehaviour
 {
+    public bool boughtByCoins;
     public ShopData shopData;
     public UnlockableData myData;
     public ShopPanelProperties shopPanel;
@@ -43,8 +44,11 @@ public class Unlockable : MonoBehaviour
     {
         if (myData.locked)
         {
-            acceptPanel.SetProperties(this);
-            openAcceptPanel?.Invoke();
+            if (boughtByCoins)
+            {
+                acceptPanel.SetProperties(this);
+                openAcceptPanel?.Invoke();
+            }
         }
         else if (!myData.equiped)
             Equip();

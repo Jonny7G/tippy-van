@@ -11,7 +11,7 @@ public class ShopAcceptPanel : MonoBehaviour
     [SerializeField] private Image carImage;
     [SerializeField] private Button buyButton;
 
-    [SerializeField] private IntVariable totalScore;
+    [SerializeField] private IntReference totalScore;
 
     private Unlockable activeUnlock;
 
@@ -21,15 +21,15 @@ public class ShopAcceptPanel : MonoBehaviour
         carImage.sprite = unlockable.shopPanel.carImage;
         activeUnlock = unlockable;
 
-        if (totalScore.Value < unlockable.shopPanel.cost)
+        if (totalScore.value < unlockable.shopPanel.cost)
             buyButton.interactable = false;
     }
     public void ExecuteUnlock()
     {
-        if (totalScore.Value >= activeUnlock.shopPanel.cost)
+        if (totalScore.value >= activeUnlock.shopPanel.cost)
         {
-            totalScore.Value -= activeUnlock.shopPanel.cost;
             activeUnlock.Unlock();
+            ProgressData.instance.Unlocked(activeUnlock.shopPanel.cost);
         }
     }
 }
