@@ -12,9 +12,9 @@ public class ShopAcceptPanel : MonoBehaviour
     [SerializeField] private Button buyButton;
 
     [SerializeField] private IntReference totalScore;
-
+    
     private Unlockable activeUnlock;
-
+    
     public void SetProperties(Unlockable unlockable)
     {
         costText.SetText(unlockable.shopPanel.cost.ToString());

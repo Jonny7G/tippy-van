@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ProgressData : MonoBehaviour
 {
     public static ProgressData instance;
@@ -30,7 +30,6 @@ public class ProgressData : MonoBehaviour
         ResetScore();
         InitializeScore();
     }
-
     public void ResetScore() => scoreVar.Value = 0;
 
     public void ResetHighScore()
@@ -52,6 +51,7 @@ public class ProgressData : MonoBehaviour
         scoreData.TotalScore -= cost;
         totalScoreVar.Value = scoreData.TotalScore;
         SavingSystem.SaveProgress(scoreData, savePath);
+        OnScoreSet.Raise();
     }
 
     public void InitializeScore()
@@ -65,7 +65,8 @@ public class ProgressData : MonoBehaviour
 
     public void SetScore()
     {
-        scoreData.TotalScore += scoreVar.Value;
+        totalScoreVar.Value += scoreVar.Value;
+        scoreData.TotalScore = totalScoreVar.Value;
 
         if (scoreVar.Value > scoreData.HighScore)
         {

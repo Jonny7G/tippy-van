@@ -22,7 +22,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private BoolVariable canTurn;
     [Header("References")]
     [SerializeField] private BoolReference gameActive;
-    [SerializeField] private TransformReference WorldObject;
     [Space()]
     [Header("Events")]
     [SerializeField] private GameEvent OnDirectionReset;
@@ -38,13 +37,9 @@ public class PlayerManager : MonoBehaviour
     private bool activatedAnim = false;
     private RaycastHit2D[] results;
     private SpriteRenderer sr;
-    private Vector2 lastHitPos;
-    private Transform lastWorldPoint;
-    private float checkCooldown=0.1f;
 
     private void Start()
     {
-        lastWorldPoint = new GameObject("last world point").transform;
         playerTransform.Value = this.transform.parent;
         sr = GetComponent<SpriteRenderer>();
         worldSpeed.Value = 0;
@@ -80,8 +75,6 @@ public class PlayerManager : MonoBehaviour
                             onMissedTurn.Raise();
                             AudioManager.instance.PlaySound("car fall");
                         }
-                        else
-                            lastWorldPoint.position = transform.position;
                     }
             }
             else if (!roadEntered) //once ground is found checks if it left ground then triggers loss if so.
@@ -91,17 +84,6 @@ public class PlayerManager : MonoBehaviour
                     canTurn.Value = true;
                     roadEntered = true;
                 }
-            }
-        }
-
-        if (!canTurn.Value)
-        {
-            if (!gameActive.value || !roadEntered)
-            {
-                if (direction.value != WorldDirection.left)
-                    SetDirection(WorldDirection.left, Vector2.right);
-                if (sr.flipX)
-                    sr.flipX = false;
             }
         }
 #if UNITY_ANDROID
