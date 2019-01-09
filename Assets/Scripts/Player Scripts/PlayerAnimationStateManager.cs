@@ -16,31 +16,44 @@ public class PlayerAnimationStateManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private WorldDirectionReference playerDirection;
     [SerializeField] private VehicleReference equipedVehicle;
+    [SerializeField] private BoolReference gameActive;
     [Header("Events")]
     [SerializeField]private GameEvent OnAnimEnd;
-    [SerializeField] private GameEvent OnGameOver;
 
     private bool inFailTurn;
+    private bool outOfTurn=true;
     private Animator playerAnimator;
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimator[] allVehicleAnimators;
     private SpriteRenderer spriteRenderer;
-    private bool canTurn=true;
+
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    public void ResetVarialbles()
+
+    #region reload behaviour
+    private void ResetVarialbles()
     {
+        Debug.Log("reset animator variables");
         inFailTurn = false;
-        spriteRenderer.flipX = false;
-    }
-    public void ResetAnimator()
-    {
         spriteRenderer.flipX = false;
         playerAnimator.SetTrigger(resetTriggerName);
     }
+    private void TriggerStart()=>playerAnimator.SetTrigger("Start");
+    private void OnEnable()
+    {
+        GameState.instance.OnGameReload += ResetVarialbles;
+        GameState.instance.OnGameStart += TriggerStart;
+    }
+    private void OnDisable()
+    {
+        GameState.instance.OnGameReload -= ResetVarialbles;
+        GameState.instance.OnGameStart -= TriggerStart;
+    }
+    #endregion
+
     public void WrongTurnAnim()
     {
         inFailTurn = true;
@@ -48,25 +61,34 @@ public class PlayerAnimationStateManager : MonoBehaviour
     }
     public void MissedTurnFallAnim()
     {
-        inFailTurn = true;
-        switch (playerDirection.direction)
+        if (GameState.GameActive)
         {
-            case WorldDirection.left:
-                playerAnimator.SetTrigger(fallTriggerLeftName);
-                break;
-            case WorldDirection.right:
-                playerAnimator.SetTrigger(fallTriggerRightName);
-                break;
+            Debug.Log("fall triggered");
+            inFailTurn = true;
+            AudioManager.instance.PlaySound("car fall");
+            switch (playerDirection.direction)
+            {
+                case WorldDirection.left:
+                    playerAnimator.SetTrigger(fallTriggerLeftName);
+                    break;
+                case WorldDirection.right:
+                    playerAnimator.SetTrigger(fallTriggerRightName);
+                    break;
+            }
         }
     }
     public void SwitchState()
     {
-        if (!inFailTurn)
+        if (GameState.GameActive)
         {
-            if (canTurn)
+            if (!inFailTurn)
             {
-                spriteRenderer.flipX = !spriteRenderer.flipX;
-                playerAnimator.SetTrigger(turnTrigger);
+                if (outOfTurn)
+                {
+                    AudioManager.instance.PlaySound("car turn");
+                    spriteRenderer.flipX = !spriteRenderer.flipX;
+                    playerAnimator.SetTrigger(turnTrigger);
+                }
             }
         }
     }
@@ -86,13 +108,13 @@ public class PlayerAnimationStateManager : MonoBehaviour
     }
     public void TurnEnd()
     {
-        canTurn = true;
+        outOfTurn = true;
         OnAnimEnd.Raise();
     }
     public void GameOver()
     {
         AudioManager.instance.PlaySound("car crash");
-        OnGameOver.Raise();
+        GameState.instance.GameEnd();
     }
 }
 [System.Serializable]

@@ -38,4 +38,10 @@ public class PlayGamesManager : MonoBehaviour
         Social.ShowLeaderboardUI();
     }
     #endregion /Leaderboards
+    #region Saving
+    public static void SaveData()
+    {
+        
+    }
+    #endregion /Saving
 }

@@ -30,6 +30,20 @@ public class ProgressData : MonoBehaviour
         ResetScore();
         InitializeScore();
     }
+
+    #region reload behaviour 
+    private void OnEnable()
+    {
+        GameState.instance.OnGameOver += SetScore;
+        GameState.instance.OnGameReload += ResetScore;
+    }
+    private void OnDisable()
+    {
+        GameState.instance.OnGameOver -= SetScore;
+        GameState.instance.OnGameReload -= ResetScore;
+    }
+    #endregion
+
     public void ResetScore() => scoreVar.Value = 0;
 
     public void ResetHighScore()

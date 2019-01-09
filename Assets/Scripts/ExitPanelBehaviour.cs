@@ -9,7 +9,7 @@ public class ExitPanelBehaviour : MonoBehaviour
 
     public void Update()
     {
-        if (!gameActive.value)
+        if (!GameState.GameActive)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

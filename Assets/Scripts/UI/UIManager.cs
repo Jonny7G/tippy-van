@@ -2,14 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject deathPanel;
     [SerializeField] private Toggle soundToggle;
+    [SerializeField] private UnityEvent OnGameReload;
+    [SerializeField] private UnityEvent OnGameOver;
+    [SerializeField] private UnityEvent OnGameStart;
     private int score = 0;
     private bool wasLoaded;
+
+    #region reload behaviour
+    private void OnEnable()
+    {
+        GameState.instance.OnGameStart += InvokeStart;
+        GameState.instance.OnGameReload += InvokeReload;
+        GameState.instance.OnGameOver += InvokeOnGameOver;
+    }
+    private void OnDisable()
+    {
+        GameState.instance.OnGameStart -= InvokeStart;
+        GameState.instance.OnGameReload -= InvokeReload;
+        GameState.instance.OnGameOver -= InvokeOnGameOver;
+    }
+    private void InvokeStart() => OnGameStart?.Invoke();
+    private void InvokeReload() => OnGameReload?.Invoke();
+    private void InvokeOnGameOver() => OnGameOver?.Invoke();
+    #endregion reload behaviour
     private void Start()
     {
         ResetScore();
@@ -27,6 +49,8 @@ public class UIManager : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
+    public void OnStartGame() => GameState.instance.GameStart();
+    public void OnRestartGame() => GameState.instance.GameReload();
     public void AddScore()
     {
         score++;

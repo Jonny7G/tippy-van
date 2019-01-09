@@ -21,7 +21,7 @@ public class ScrollTexture : MonoBehaviour
 
     void Update()
     {
-        if (gameActive.value)
+        if (GameState.GameActive)
         {
             uvOffset -= (Vector2)worldDirection.value.normalized * Time.deltaTime * worldSpeed.value * moveFactor;
             myRend.material.mainTextureOffset = (uvOffset);

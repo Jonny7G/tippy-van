@@ -7,4 +7,9 @@ public class BoolReference : ScriptableObject
 {
     public BoolVariable variable;
     public bool value { get { return variable.Value; } }
+
+    public void SetValue(bool val)
+    {
+        variable.Value = val;
+    }
 }

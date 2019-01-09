@@ -10,10 +10,22 @@ public class CameraMovement : MonoBehaviour
 
     private bool positionReached=true;
 
+
+    #region reload behaviour
+    private void OnEnable()
+    {
+        GameState.instance.OnGameReload += ResetVariables;
+    }
+    private void OnDisable()
+    {
+        GameState.instance.OnGameReload -= ResetVariables;
+    }
     public void ResetVariables()
     {
         positionReached = true;
     }
+    #endregion
+
     public void StartMovement()
     {
         positionReached = false;

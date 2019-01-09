@@ -10,7 +10,6 @@ public class WorldGenerator : MonoBehaviour
 
     [SerializeField] private Vector3Reference direction;
     [SerializeField] private FloatReference worldSpeed;
-    [SerializeField] private BoolReference gameActive;
     [SerializeField] private GameEvent OnWorldMove;
 
     [SerializeField] private TrackData startArea;
@@ -120,12 +119,12 @@ public class WorldGenerator : MonoBehaviour
         startTrack.transform.position = transform.position;
         lastTrack = startTrack;
 
-        yield return new WaitUntil(() => gameActive.value);
+        yield return new WaitUntil(() => GameState.GameActive);
 
         float timeElapsed=0f;
         float timeToWait = Random.Range(specialsCooldownMin,speciaCooldownMax);
         float timePassed = 0f;
-        while (gameActive.value)
+        while (GameState.GameActive)
         {
             timeElapsed += Time.deltaTime;
             if(timePassed<41)
@@ -164,12 +163,12 @@ public class WorldGenerator : MonoBehaviour
         startTrack.transform.position = transform.position;
         lastTrack = startTrack;
 
-        yield return new WaitUntil(() => gameActive.value);
+        yield return new WaitUntil(() => GameState.GameActive);
 
         float timeElapsed=0;
         float timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
         float timePassed=0f;
-        while (gameActive.value)
+        while (GameState.GameActive)
         {
             timePassed += Time.deltaTime;
             if (spawnNormally)
@@ -317,7 +316,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void Update()
     {
-        if(gameActive.value)
+        if(GameState.GameActive)
             MoveActiveObjects();
         //absoluteMaxY = Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight)).y + consecutives;
     }

@@ -20,6 +20,16 @@ public class ObjectPooling : MonoBehaviour
 
         activeObjects = new List<IPoolable>();
     }
+    #region reload behaviour 
+    private void OnEnable()
+    {
+        GameState.instance.OnGameReload += ResetPool;
+    }
+    private void OnDisable()
+    {
+        GameState.instance.OnGameReload -= ResetPool;
+    }
+    #endregion
     public void SetPool(IPoolable obj,int key,int amount)
     {
 
