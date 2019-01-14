@@ -25,10 +25,13 @@ public class ProgressData : MonoBehaviour
     }
     private void Start()
     {
-        savePath = System.IO.Path.Combine(Application.persistentDataPath, "ProgressData.txt");
+        if (instance == this)
+        {
+            savePath = System.IO.Path.Combine(Application.persistentDataPath, "ProgressData.txt");
 
-        ResetScore();
-        InitializeScore();
+            ResetScore();
+            InitializeScore();
+        }
     }
 
     #region reload behaviour 
@@ -70,11 +73,20 @@ public class ProgressData : MonoBehaviour
 
     public void InitializeScore()
     {
-        scoreData = new ScoreData();
-        SavingSystem.LoadProgress(out scoreData, savePath);
+        scoreData = new ScoreData(0,0);
+        try
+        {
+            SavingSystem.LoadProgress(out scoreData, savePath);
+        }
+        catch (System.Exception)
+        {
+            SavingSystem.SaveProgress(scoreData, savePath);
+        }
 
         highScoreVar.Value = scoreData.HighScore;
         totalScoreVar.Value = scoreData.TotalScore;
+
+        OnScoreSet.Raise();
     }
 
     public void SetScore()
@@ -99,4 +111,10 @@ public struct ScoreData
 {
     public int HighScore;
     public int TotalScore;
+    
+    public ScoreData (int highScore,int totalScore)
+    {
+        HighScore = highScore;
+        TotalScore = totalScore;
+    }
 }

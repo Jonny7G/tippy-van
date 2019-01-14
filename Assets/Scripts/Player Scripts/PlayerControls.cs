@@ -21,12 +21,13 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private Vector3Variable directionCoords;
     [Header("References")]
     [SerializeField] private BoolReference gameActive;
+    [SerializeField] private BoolVariable canTurn;
     [Header("Events")]
     [SerializeField] private GameEvent OnTurn;
     [SerializeField] private GameEvent OnDirectionSwitch;
     public float DefaultWorldSpeed { get { return _defaultWorldSpeed; } }
 
-    private bool canTurn = true;
+    //private bool canTurn = true;
     private bool deathActivated = false;
     private bool initialStart;
     private IEnumerator accelerate;
@@ -34,7 +35,7 @@ public class PlayerControls : MonoBehaviour
     private Collider2D[] results = new Collider2D[10];
     
     #region reload behaviour
-    private void OnEnable()
+    private void Start()
     {
         GameState.instance.OnGameStart += OnGameReset;
         GameState.instance.OnGameReload += OnGameReset;
@@ -47,7 +48,7 @@ public class PlayerControls : MonoBehaviour
     public void OnGameReset()
     {
         StopSpeedChanges();
-        canTurn = true;
+        canTurn.Value = true;
         deathActivated = false;
         initialStart = false;
         SetDirection(WorldDirection.left, Vector2.right);
@@ -64,7 +65,7 @@ public class PlayerControls : MonoBehaviour
             {
                 if (Grounded())
                 {
-                    if (canTurn)
+                    if (canTurn.Value)
                     {
 #if UNITY_ANDROID
                         if (Input.touchCount > 0)
@@ -75,7 +76,7 @@ public class PlayerControls : MonoBehaviour
                                 OnTurn.Raise();
                                 activateTurnAnim?.Invoke();
                                 SlowDown();
-                                canTurn = false;
+                                canTurn.Value = false;
                             }
                         }
 #endif
@@ -85,7 +86,7 @@ public class PlayerControls : MonoBehaviour
                             OnTurn.Raise();
                             activateTurnAnim?.Invoke();
                             SlowDown();
-                            canTurn = false;
+                            canTurn.Value = false;
                         }
 #endif
                     }
@@ -110,7 +111,6 @@ public class PlayerControls : MonoBehaviour
     }
     private bool Grounded()
     {
-        Debug.Log("ground check started");
         int colliderCount = Physics2D.OverlapCircleNonAlloc(transform.position, groundCheckRadius, results, allTiles);
 
         return colliderCount > 0;
@@ -180,12 +180,12 @@ public class PlayerControls : MonoBehaviour
     private IEnumerator Accelerate()
     {
         SwitchDirection();
-        canTurn = true;
+        canTurn.Value = true;
         float perc = 0;
         while (worldSpeed.Value < DefaultWorldSpeed)
         {
             worldSpeed.Value = DefaultWorldSpeed * accelaration.Evaluate(perc);
-            perc += Time.deltaTime * 2.3f;
+            perc += Time.deltaTime * 3.2f;
 
             yield return null;
         }

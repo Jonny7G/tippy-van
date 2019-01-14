@@ -25,12 +25,17 @@ public class PlayerAnimationStateManager : MonoBehaviour
     private Animator playerAnimator;
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimator[] allVehicleAnimators;
+
+    [SerializeField] private PlayerAnimator activeVehicleAnimator;
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        GameState.instance.OnGameReload += ResetVarialbles;
+        GameState.instance.OnGameStart += TriggerStart;
     }
 
     #region reload behaviour
@@ -42,11 +47,7 @@ public class PlayerAnimationStateManager : MonoBehaviour
         playerAnimator.SetTrigger(resetTriggerName);
     }
     private void TriggerStart()=>playerAnimator.SetTrigger("Start");
-    private void OnEnable()
-    {
-        GameState.instance.OnGameReload += ResetVarialbles;
-        GameState.instance.OnGameStart += TriggerStart;
-    }
+    
     private void OnDisable()
     {
         GameState.instance.OnGameReload -= ResetVarialbles;
@@ -63,7 +64,6 @@ public class PlayerAnimationStateManager : MonoBehaviour
     {
         if (GameState.GameActive)
         {
-            Debug.Log("fall triggered");
             inFailTurn = true;
             AudioManager.instance.PlaySound("car fall");
             switch (playerDirection.direction)
@@ -102,7 +102,8 @@ public class PlayerAnimationStateManager : MonoBehaviour
         {
             if (animator.vehicleType == equipedVehicle.Value)
             {
-                playerAnimator.runtimeAnimatorController = animator.animator;
+                activeVehicleAnimator = animator;
+                playerAnimator.runtimeAnimatorController = activeVehicleAnimator.animator;
             }
         }
     }
@@ -122,4 +123,5 @@ public struct PlayerAnimator
 {
     public Vehicles vehicleType;
     public RuntimeAnimatorController animator;
+    public Sprite idleSprite;
 }

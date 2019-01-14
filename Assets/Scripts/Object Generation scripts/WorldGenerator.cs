@@ -60,55 +60,55 @@ public class WorldGenerator : MonoBehaviour
     
     private Vector2 minScreenSpace;
     private float absoluteMaxY;
-
+    
     private void Start()
     {
-        pooler = ObjectPooling.instance;
+            pooler = ObjectPooling.instance;
 
-        startAreaKey = pooler.GetUniqueID();
-        pooler.SetPool(startArea, startAreaKey, 1);
+            startAreaKey = pooler.GetUniqueID();
+            pooler.SetPool(startArea, startAreaKey, 1);
 
-        leftRoadKey = pooler.GetUniqueID();
-        pooler.SetPool(leftRoad, leftRoadKey, 50);
-        
-        rightRoadKey = pooler.GetUniqueID();
-        pooler.SetPool(rightRoad,rightRoadKey, 50);
+            leftRoadKey = pooler.GetUniqueID();
+            pooler.SetPool(leftRoad, leftRoadKey, 50);
 
-        leftTurnRoadKey = pooler.GetUniqueID();
-        pooler.SetPool(leftTurnRoad,leftTurnRoadKey, 10);
+            rightRoadKey = pooler.GetUniqueID();
+            pooler.SetPool(rightRoad, rightRoadKey, 50);
 
-        rightTurnRoadKey = pooler.GetUniqueID();
-        pooler.SetPool(rightTurnRoad,rightTurnRoadKey, 10);
+            leftTurnRoadKey = pooler.GetUniqueID();
+            pooler.SetPool(leftTurnRoad, leftTurnRoadKey, 10);
 
-        leftWoodBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(leftWoodBridge, leftWoodBridgeKey, 1);
+            rightTurnRoadKey = pooler.GetUniqueID();
+            pooler.SetPool(rightTurnRoad, rightTurnRoadKey, 10);
 
-        rightWoodBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(rightWoodBridge, rightWoodBridgeKey, 1);
+            leftWoodBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(leftWoodBridge, leftWoodBridgeKey, 1);
 
-        leftLogBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(leftLogBridge, leftLogBridgeKey, 1);
+            rightWoodBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(rightWoodBridge, rightWoodBridgeKey, 1);
 
-        rightLogBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(rightLogBridge, rightLogBridgeKey, 1);
+            leftLogBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(leftLogBridge, leftLogBridgeKey, 1);
 
-        leftBrokenBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(leftBrokenBridge, leftBrokenBridgeKey, 1);
+            rightLogBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(rightLogBridge, rightLogBridgeKey, 1);
 
-        rightBrokenBridgeKey = pooler.GetUniqueID();
-        pooler.SetPool(rightBrokenBridge, rightBrokenBridgeKey, 1);
+            leftBrokenBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(leftBrokenBridge, leftBrokenBridgeKey, 1);
 
-        leftSpecialKeys = new int[] { leftWoodBridgeKey, leftLogBridgeKey, leftBrokenBridgeKey };
-        rightSpecialKeys = new int[] { rightWoodBridgeKey, rightLogBridgeKey, rightBrokenBridgeKey };
+            rightBrokenBridgeKey = pooler.GetUniqueID();
+            pooler.SetPool(rightBrokenBridge, rightBrokenBridgeKey, 1);
 
-        absoluteMaxY = Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight)).y+12;
-        float minPadding = 7;
-        Vector2 minPaddingVector = new Vector2(minPadding, minPadding);
-        
-        minScreenSpace = Camera.main.ScreenToWorldPoint(new Vector3(0,0,0));
-        Debug.Log(minScreenSpace);
-        minScreenSpace -= minPaddingVector;
-        GameReload();
+            leftSpecialKeys = new int[] { leftWoodBridgeKey, leftLogBridgeKey, leftBrokenBridgeKey };
+            rightSpecialKeys = new int[] { rightWoodBridgeKey, rightLogBridgeKey, rightBrokenBridgeKey };
+
+            absoluteMaxY = Camera.main.ScreenToWorldPoint(new Vector3(0, Camera.main.pixelHeight)).y + 12;
+            float minPadding = 7;
+            Vector2 minPaddingVector = new Vector2(minPadding, minPadding);
+
+            minScreenSpace = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+            Debug.Log(minScreenSpace);
+            minScreenSpace -= minPaddingVector;
+            GameReload();
     }
 
     private IEnumerator SpawnLoop()
@@ -122,13 +122,13 @@ public class WorldGenerator : MonoBehaviour
         yield return new WaitUntil(() => GameState.GameActive);
 
         float timeElapsed=0f;
-        float timeToWait = Random.Range(specialsCooldownMin,speciaCooldownMax);
+        float timeToWait = Random.Range(8f,12f);
         float timePassed = 0f;
         while (GameState.GameActive)
         {
             timeElapsed += Time.deltaTime;
             if(timePassed<41)
-            timePassed += Time.deltaTime;
+             timePassed += Time.deltaTime;
             if (timeElapsed > timeToWait)
             {
                 timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
@@ -166,7 +166,7 @@ public class WorldGenerator : MonoBehaviour
         yield return new WaitUntil(() => GameState.GameActive);
 
         float timeElapsed=0;
-        float timeToWait = Random.Range(specialsCooldownMin, speciaCooldownMax);
+        float timeToWait = Random.Range(8f, 12f); ;
         float timePassed=0f;
         while (GameState.GameActive)
         {

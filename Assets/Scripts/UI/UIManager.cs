@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private PanelStateManager exitPanel;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject deathPanel;
     [SerializeField] private Toggle soundToggle;
@@ -16,12 +17,6 @@ public class UIManager : MonoBehaviour
     private bool wasLoaded;
 
     #region reload behaviour
-    private void OnEnable()
-    {
-        GameState.instance.OnGameStart += InvokeStart;
-        GameState.instance.OnGameReload += InvokeReload;
-        GameState.instance.OnGameOver += InvokeOnGameOver;
-    }
     private void OnDisable()
     {
         GameState.instance.OnGameStart -= InvokeStart;
@@ -35,10 +30,25 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         ResetScore();
-
+       
         wasLoaded = false;
         soundToggle.isOn = AudioListener.volume == 0;
         wasLoaded = true;
+        GameState.instance.OnGameStart += InvokeStart;
+        GameState.instance.OnGameReload += InvokeReload;
+        GameState.instance.OnGameOver += InvokeOnGameOver;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PanelStateManager.CloseLastPanel(hasPanel => 
+            {
+                if (!hasPanel)
+                    exitPanel.TransitionIn();
+            });
+            
+        }
     }
     public void ResetScore()
     {
@@ -48,6 +58,7 @@ public class UIManager : MonoBehaviour
     public void ReloadGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+
     }
     public void OnStartGame() => GameState.instance.GameStart();
     public void OnRestartGame() => GameState.instance.GameReload();

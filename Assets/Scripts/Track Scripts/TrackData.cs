@@ -8,7 +8,7 @@ public class TrackData : MonoBehaviour,IPoolable
 
     [SerializeField] private Transform _backConnection;
     [SerializeField] public CoinBehaviour[] containedCoins;
-
+ 
     #region Poolable
     public int Key { get; set; }
 

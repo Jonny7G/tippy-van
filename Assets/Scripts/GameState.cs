@@ -11,17 +11,19 @@ public class GameState : MonoBehaviour
     public event Action OnGameOver;
     public event Action OnGameStart;
     public event Action OnGameReload;
-
+    public event Action OnGameRestart;
     private void Awake()
     {
         if (instance != null)
             Destroy(gameObject);
         else
+        {
             instance = this;
-        DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
-        GameActive = false;
-        Application.targetFrameRate = 60;
+            GameActive = false;
+            Application.targetFrameRate = 60;
+        }
     }
     public void GameEnd()
     {
@@ -30,12 +32,19 @@ public class GameState : MonoBehaviour
     }
     public void GameStart()
     {
-        OnGameStart?.Invoke();
+        Debug.Log("game start");
         GameActive = true;
+        OnGameStart?.Invoke();
     }
     public void GameReload()
     {
-        OnGameReload?.Invoke();
+        Debug.Log("game reload");
         GameActive = true;
+        OnGameReload?.Invoke();
+    }
+    public void GameRestart()
+    {
+        Debug.Log("Game scene reloaded");
+        OnGameRestart?.Invoke();
     }
 }

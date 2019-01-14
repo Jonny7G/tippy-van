@@ -19,15 +19,18 @@ public class ObjectPooling : MonoBehaviour
         instance = this;
 
         activeObjects = new List<IPoolable>();
+        
     }
-    #region reload behaviour 
-    private void OnEnable()
+    private void Start()
     {
         GameState.instance.OnGameReload += ResetPool;
+        GameState.instance.OnGameStart += ResetPool;
     }
+    #region reload behaviour 
     private void OnDisable()
     {
         GameState.instance.OnGameReload -= ResetPool;
+        GameState.instance.OnGameStart -= ResetPool;
     }
     #endregion
     public void SetPool(IPoolable obj,int key,int amount)
@@ -70,17 +73,24 @@ public class ObjectPooling : MonoBehaviour
     }
     public void EnterPool(int key,IPoolable poolObject)
     {
+        Debug.Log("Entering pool");
         PooledObjects[key].Enqueue(poolObject);
         activeObjects.Remove(poolObject);
         poolObject.PoolObject.SetActive(false);
     }
     public void ResetPool()
     {
+        Debug.Log("Pool resetting");
         for (int i = activeObjects.Count - 1; i >= 0; i--)
         {
             activeObjects[i].EndReached();
+            Debug.Log("resetting pool object");
         }
         OnPoolReset.Raise();
+    }
+    private void Update()
+    {
+        Debug.Log(activeObjects.Count);
     }
     public int GetUniqueID()
     {

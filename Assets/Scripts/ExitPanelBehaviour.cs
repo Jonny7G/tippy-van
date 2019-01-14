@@ -9,15 +9,15 @@ public class ExitPanelBehaviour : MonoBehaviour
 
     public void Update()
     {
-        if (!GameState.GameActive)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!myPanel.IsOut)
-                    myPanel.TransitionIn();
-                else
-                    myPanel.TransitionOut();
-            }
-        }
+        //if (!GameState.GameActive)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Escape))
+        //    {
+        //        if (!myPanel.IsOut)
+        //            myPanel.TransitionIn();
+        //        else
+        //            myPanel.TransitionOut();
+        //    }
+        //}
     }
 }

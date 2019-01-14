@@ -8,8 +8,7 @@ public class BrokenBridge : MonoBehaviour
     [Header("Fields")]
     [SerializeField] private BezierCurvePoints bezierPoints;
     [Header("References")]
-    [SerializeField] private TransformReference player;
-    [SerializeField] private BoolReference gameActive;
+    [SerializeField] private Transform player;
 
     private bool triggered=false;
     private bool inputRecieved;
@@ -19,6 +18,7 @@ public class BrokenBridge : MonoBehaviour
     [SerializeField] private GameEvent bridgeExecuted;
     private void Start()
     {
+        player = GameObject.Find("PlayerHolder").transform;
         trackData = GetComponent<TrackData>();
         LoadCoins();
     }
@@ -68,8 +68,8 @@ public class BrokenBridge : MonoBehaviour
         float t=0;
         while (t<1 )
         {
-            t = Mathf.InverseLerp(bezierPoints.startPoint.position.x, bezierPoints.endPoint.position.x, player.value.position.x);
-            player.value.position = new Vector3(0, bezierPoints.GetBezierPoint(t).y, 0);
+            t = Mathf.InverseLerp(bezierPoints.startPoint.position.x, bezierPoints.endPoint.position.x, player.position.x);
+            player.position = new Vector3(0, bezierPoints.GetBezierPoint(t).y, 0);
 
             yield return null;
         }
